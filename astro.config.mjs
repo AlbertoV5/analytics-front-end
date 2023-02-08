@@ -14,7 +14,8 @@ import compress from "astro-compress";
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://main.d3a2hjahy8dg4j.amplifyapp.com',
+  // site: 'https://main.d3a2hjahy8dg4j.amplifyapp.com',
+  site: 'https://albertov5.github.io/hamx-front-end',
   integrations: [react(), robotsTxt(), sitemap(), compress()]
   // output: 'server'
 });
