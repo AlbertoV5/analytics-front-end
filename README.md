@@ -1,18 +1,51 @@
-# Front-End Astro App
+# Hamx A.I. Calculators Website
 
+Static site built with [Astro](https://astro.build/), React and Bootstrap.
 
-## Astro
+## Source Folder Structure
 
-https://astro.build/
+Most of the files are .astro for general HTML and JSX for interactive sections. Following Astro's folder structure, components include separate .astro files and some include .tsx for React components.
+
+```
+src
+├── components
+│   ├── calculator
+│   │   └── components
+│   ├── database
+│   │   └── components
+│   ├── footer
+│   │   └── components
+│   ├── login
+│   │   ├── auth
+│   │   ├── components
+│   │   └── hooks
+│   ├── navbar
+│   │   └── components
+│   └── userdata
+├── icons
+├── images
+├── layouts
+├── pages
+│   ├── calculator
+│   ├── database
+│   ├── legal
+│   ├── login
+│   ├── metrics
+│   └── quickstart
+├── scripts
+└── styles
+```
 
 ## Styles
 
-Make sure to compile the CSS into the public folder.
+Using Bootstrap with custom SCSS. Compile with:
 ```shell
 sass src/styles/custom.scss public/custom.css
 ```
 
-## TODO:
+# TODO:
+
+## Notes 1
 
 1. Disclaimer in website
 2. Better results display
@@ -27,26 +60,18 @@ Slogan: Artificial Intelligence Made Easy
 1. Language, Content Management system.
 2. Jamstack deployment.
 
-Deprecated
-```shell
-&& cp node_modules/@fortawesome/fontawesome-free/css/all.css public/all.css && cp node_modules/@fortawesome/fontawesome-free/css/brands.css public/brands.css
-```
 ## Notes 2
 
 1. Add view password option
 2. Change favicon
 
-
-Calculator
+## Calculator
 
 1. Top Ten Diagnosis field instead of Diagnosis
-2. Input custom diagnosis data, sistema de fuzzy search?
-   1. Data Input revolucionar data entry
-3. Mantener una columna
+2. Input custom diagnosis data, fuzzy search?
+   1. Data Input section, improve data entry?
+3. Keep the narrow layout in Calculator
 4. Add Instructions to Calculator
-5. Aclarar las classifications
-6. Definir Visualizactiones de Clusters
-
-Paso 3 de Calculator
-
-1. Consultar Graficos
+5. Improve classification results description
+6. Define cluster and metrics visualizations
+7. Add a third step in Calculator: consult metrics
