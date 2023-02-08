@@ -4,7 +4,7 @@ Static site built with [Astro](https://astro.build/), React and Bootstrap.
 
 ## Source Folder Structure
 
-Most of the files are .astro for general HTML and JSX for interactive sections. Following Astro's folder structure, components include separate .astro files and some include .tsx for React components.
+Most of the files are .astro for general HTML and JSX for interactive sections. Following Astro's folder structure, components include separate .astro files and some include .tsx for React components. Most content is in markdown (.md) files inside each of the pages folder.
 
 ```
 src
