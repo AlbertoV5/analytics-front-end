@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import { useQuery } from '@tanstack/react-query'
 import { API_URL, getHeaders } from '../config';
 import { useSession } from '../login/hooks/useSession';
-
+import { useQuery, QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import TableControls from './components/TableControls';
 
 export interface TableData {
     token: string;
@@ -20,7 +20,18 @@ const headerData = [
     "ICD-11",
 ]
 
+
+const queryClient = new QueryClient()
+
 const DiagnosisTable = () => {
+    return (
+        <QueryClientProvider client={queryClient}>
+            <DiagnosisTableData></DiagnosisTableData>
+        </QueryClientProvider>
+    )
+}
+
+const DiagnosisTableData = () => {
 
     const [page, setPage] = useState(0);
     const [pageSize, setPageSize] = useState(8);
@@ -29,7 +40,7 @@ const DiagnosisTable = () => {
     const { isLoading, error, data } = useQuery({
         queryKey: ['diagnosisData', page],
         queryFn: () => getSession()
-        .then(session => 
+        .then(session =>
             fetch(`${API_URL}/diagnosis/?offset=${page*pageSize}&limit=${pageSize}`, {
                 method:'GET',
                 headers: getHeaders(session.token)
@@ -67,7 +78,7 @@ const DiagnosisTable = () => {
                                     <td key={`${header}-${index}`} 
                                         className="card-text placeholder-glow"
                                     >
-                                        <span className="placeholder placeholder w-100"></span>
+                                        <span className="placeholder w-100"></span>
                                     </td>
                                 ))}
                             </tr>
@@ -83,22 +94,7 @@ const DiagnosisTable = () => {
                 </tbody>
             </table>
         </section>
-        <section 
-            id="patient-table-controls"
-            className='py-2'
-        >
-            <ul className="pagination">
-                <li className="page-item">
-                    <a type="button" className="page-link" onClick={() => setPage(prev => prev - 1)}>Prev</a>
-                </li>
-                <li className="page-item">
-                    <p className="page-link disabled">{page + 1}</p>
-                </li>
-                <li className="page-item">
-                    <a type="button" className="page-link" onClick={() => setPage(prev => prev + 1)}>Next</a>
-                </li>
-            </ul>
-        </section>
+        <TableControls page={page} setPage={setPage} />
         </>
     )
 }

@@ -1,7 +1,7 @@
-import { UserSession, useSession } from "../login/hooks/useSession";
+import { useSession } from "../login/hooks/useSession";
 import { ML_URL, getHeaders } from "../config";
 import { FieldValues, useForm } from "react-hook-form";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useState } from "react";
 
 import { OptionResult } from "./components/OptionResult";
@@ -36,8 +36,18 @@ const fieldsData = {
     diagnosisCount: {id: 'diagnosis_count', name: 'Diagnosis Count'},
 }
 
-/** Form that fetches valid options on load, validates input and makes request on submission. */
+const queryClient = new QueryClient()
+
 const CalculatorForm = () => {
+    return (
+        <QueryClientProvider client={queryClient}>
+            <CalculatorFormData></CalculatorFormData>
+        </QueryClientProvider>
+    )
+}
+
+/** Form that fetches valid options on load, validates input and makes request on submission. */
+const CalculatorFormData = () => {
     // ------------------------------------------------------------
     // Form State and validation.
     // ------------------------------------------------------------

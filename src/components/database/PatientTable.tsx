@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { API_URL, getHeaders } from '../config';
 import { useSession } from '../login/hooks/useSession';
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import TableControls from './components/TableControls';
 
 
 export interface PatientData {
@@ -28,7 +29,17 @@ const headerData = [
     "Expired"
 ]
 
+const queryClient = new QueryClient()
+
 const PatientTable = () => {
+    return (
+        <QueryClientProvider client={queryClient}>
+            <PatientTableData></PatientTableData>
+        </QueryClientProvider>
+    )
+}
+
+const PatientTableData = () => {
 
     const [page, setPage] = useState(0);
     const [pageSize, setPageSize] = useState(10);
@@ -91,22 +102,7 @@ const PatientTable = () => {
                 </tbody>
             </table>
         </section>
-        <section 
-            id="patient-table-controls"
-            className='py-2'
-        >
-            <ul className="pagination">
-                <li className="page-item">
-                    <a type="button" className="page-link" onClick={() => setPage(prev => prev - 1)}>Prev</a>
-                </li>
-                <li className="page-item">
-                    <p className="page-link disabled">{page + 1}</p>
-                </li>
-                <li className="page-item">
-                    <a type="button" className="page-link" onClick={() => setPage(prev => prev + 1)}>Next</a>
-                </li>
-            </ul>
-        </section>
+        <TableControls page={page} setPage={setPage} />
         </>
     )
 }

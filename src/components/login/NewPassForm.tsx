@@ -1,5 +1,5 @@
 import { Input, FormError} from "./components/Input";
-import { LoginFormProps, REDIRECT_URL } from "./LoginIsland";
+import type { AuthFlowFormProps } from "./AuthFlow";
 import { useSession } from "./hooks/useSession";
 import { FormEvent, useState } from "react";
 
@@ -14,7 +14,7 @@ const passwordErrors = [
   }
 ]
 
-const NewPassForm = ({payload}: LoginFormProps) => {
+const NewPassForm = ({payload, redirect_url}: AuthFlowFormProps) => {
   const { setSession, getSession } = useSession();
   const [newPass, setNewPass] = useState('');
   const [confirmNewPass, setConfirmNewPass] = useState('');
@@ -33,7 +33,7 @@ const NewPassForm = ({payload}: LoginFormProps) => {
             token: data.getIdToken().getJwtToken(), 
             refresh: data.getRefreshToken().getToken()
           });
-          window.location.href = REDIRECT_URL;
+          window.location.href = redirect_url;
         },
         onFailure: (error) => {
           const errors = passwordErrors.filter(e => error.message.includes(e.match));
@@ -51,9 +51,9 @@ const NewPassForm = ({payload}: LoginFormProps) => {
     >
         <h4 
           className={"mb-2 text-center"}
-        >User Login
+        >Set Password
         </h4>
-        <p className={"form-text text-center text-success"}>Please set a new password</p>
+        <p className={"form-text text-center text-success"}>Please include lowercase, uppercase, number, and symbol.</p>
         <Input
             name="New Password"
             type="password"

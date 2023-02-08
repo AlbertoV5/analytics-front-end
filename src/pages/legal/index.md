@@ -1,5 +1,5 @@
 ---
-layout: ../../layouts/WideLayout.astro
+layout: ../../layouts/MainNarrow.astro
 title: Legal Notice
 ---
 <style>

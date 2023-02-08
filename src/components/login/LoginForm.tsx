@@ -1,13 +1,12 @@
-import { Input, FormError} from "./components/Input";
+import { Input, FormError } from "./components/Input";
 import { useSession } from "./hooks/useSession";
-import { REDIRECT_URL } from "./LoginIsland"
 import { getUserDetails } from "./auth/user";
 import { FormEvent, useState } from "react";
 
-import type { LoginFormProps } from "./LoginIsland";
+import type { AuthFlowFormProps } from "./AuthFlow";
 
 /** Form and validation for User Login */
-const LoginForm = ({setForm, setPayload}: LoginFormProps) => {
+const LoginForm = ({setForm, setPayload, redirect_url}: AuthFlowFormProps) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState<FormError | undefined>(undefined);
@@ -24,7 +23,7 @@ const LoginForm = ({setForm, setPayload}: LoginFormProps) => {
                 token: data.getIdToken().getJwtToken(), 
                 refresh: data.getRefreshToken().getToken()
               });
-              window.location.href = REDIRECT_URL;
+              window.location.href = redirect_url;
           },
           onFailure: (error) => {
               setPassword('');

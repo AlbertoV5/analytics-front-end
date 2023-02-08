@@ -1,0 +1,21 @@
+---
+// Layout for Narrow bootstrap columns
+import Layout from "./Layout.astro";
+
+// Astro Props
+export interface Props {
+	title: string;
+}
+const { title } = Astro.props;
+---
+<Layout title={title}>
+    <main class="container-fluid py-5">
+        <section id="main-section-wrapper" class='row'>
+            <aside id="main-aside-left" class='col-1 col-md-3 col-lg-4'></aside>
+            <section id="main-section-center" class='col-10 col-md-6 col-lg-4'>
+                <slot />
+            </section>
+            <aside id="main-aside-right" class='col-1 col-md-3 col-lg-4'></aside>
+        </section>
+    </main>
+</Layout>

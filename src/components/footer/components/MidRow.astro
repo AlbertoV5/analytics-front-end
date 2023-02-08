@@ -1,13 +1,22 @@
 ---
-interface Props {
-    links: {name: string, href: string}[]
-}
-const { links } = Astro.props;
+const links = [
+    {name: "Home", href: ""},
+    {name: "Quickstart", href: "quickstart"},
+    {name: "Calculator", href: "calculator"},
+    {name: "Database", href: "database"},
+    {name: "Legal Notice", href: "legal"},
+    {name: "Contact Us", href: 'https://health-analytics-mx.odoo.com/about-us', blank: true},
+]
+const BASE_URL = import.meta.env.BASE_URL;
 ---
 <section class="row">
     <ul class="col-12 col-md-2 py-2">{links.map(link => (
         <li id={`${link.name.toLowerCase()}-footer`}>
-            <a class="footer-link" id={`${link.name.toLowerCase()}-footer-link`} href={link.href}>
+            <a class="footer-link" 
+                id={`${link.name.toLowerCase()}-footer-link`} 
+                href={`${BASE_URL}${link.href}`} 
+                target={link.blank ? 'blank' : '_self'}
+            >
                 {link.name}
             </a>
         </li>

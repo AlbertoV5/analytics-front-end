@@ -7,23 +7,25 @@ import LogoButton from './components/LogoButton.astro'
 import MobileMenuButton from './components/MobileMenuButton.astro'
 import MobileMenu from './MobileMenu.astro'
 
+const URL = import.meta.env.BASE_URL;
+const links = [
+    // {name: "Home", href: "/"},
+    {name: "Quickstart", href: "quickstart"},
+    {name: "Calculator", href: "calculator"},
+    {name: "Metrics", href: "metrics"},
+    {name: "Database", href: "database"},
+]
 ---
 <nav
     id="navbar"
     class="navbar shadow-sm sticky-top bg-primary"
 >
-    <section
-        id="navbar-content" 
-        class="container"
-        style="height: 40px;"
-    >
+    <section id="navbar-content" class="container" style="height: 40px;">
         <div id="nav-buttons" class="d-none d-md-block">
             <LogoButton idSuffix={'desktop'}></LogoButton>
-            <!-- <NavButton name="Home" href="/"/> -->
-            <NavButton name="Quickstart" href="/quickstart"/>
-            <NavButton name="Calculator" href="/calculator"/>
-            <NavButton name="Metrics" href="/metrics"/>
-            <NavButton name="Database" href="/database"/>
+            {links.map(link => (
+                <NavButton name={link.name} href={`${URL}${link.href}`}/>
+            ))}
         </div>
         <div id="user-buttons" class="d-none d-md-block">
             <LoginButton></LoginButton>
@@ -40,11 +42,9 @@ import MobileMenu from './MobileMenu.astro'
 </nav>
 <MobileMenu>
     <div id="nav-buttons-mobile" class="vstack gap-2">
-        <!-- <NavButton name="Home" href="/" idSuffix='-offside'/> -->
-        <NavButton name="Quickstart" href="/quickstart" idSuffix='-offside'/>
-        <NavButton name="Calculator" href="/calculator" idSuffix='-offside'/>
-        <NavButton name="Metrics" href="/metrics" idSuffix='-offside'/>
-        <NavButton name="Database" href="/database" idSuffix='-offside'/>
+        {links.map(link => (
+            <NavButton name={link.name} href={`${URL}${link.href}`} idSuffix={'-offside'}/>
+        ))}
         <LoginButton idSuffix='-offside'></LoginButton>
         <ContactButton idSuffix='-offside'></ContactButton>
     </div>

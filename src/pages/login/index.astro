@@ -1,11 +1,12 @@
 ---
-import WideLayout from '../../layouts/WideLayout.astro';
-import LoginIsland from '../../components/login/LoginIsland';
+import MainNarrow from '../../layouts/MainNarrow.astro';
+import AuthFlow from '../../components/login/AuthFlow';
 
+const BASE_URL = import.meta.env.BASE_URL;
 ---
 
-<WideLayout title="Health Analytics">
-    <section id="user-section" class="row d-flex justify-content-center py-2">
-        <LoginIsland client:load />
+<MainNarrow title="Login">
+    <section id="login-section" class="row d-flex justify-content-center py-2">
+        <AuthFlow client:load redirect_url={`${BASE_URL}calculator`} />
     </section>
-</WideLayout>
+</MainNarrow>

@@ -1,10 +1,10 @@
 import { Locked } from "./components/Locked"
 import { useSession } from "./hooks/useSession";
 import { FormEvent, useState } from "react";
-import type { LoginFormProps } from "./LoginIsland";
+import type { AuthFlowFormProps } from "./AuthFlow";
 
 /** Provide a logout button and current user information. */
-const LogoutForm = ({setForm}: LoginFormProps) => {
+const LogoutForm = ({setForm}: AuthFlowFormProps) => {
   const { setSession, getUser } = useSession();
   const [ user, setUser ] = useState(getUser);
   /** Remove session data and set form to login */

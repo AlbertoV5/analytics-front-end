@@ -6,15 +6,17 @@ interface Props {
 }
 const {
     name='Login', 
-    href='/login', 
+    href='login', 
     idSuffix='-login-button'
 } = Astro.props;
+
+const URL = import.meta.env.BASE_URL;
 ---
 <a
     id={`${name.toLowerCase()}${idSuffix}`}
     type="button"
     class="btn btn-primary border-0 rounded-0 mx-1 px-3" 
-    href={href}
+    href={`${URL}${href}`}
     style={{fontWeight: "500", height: "36px"}}
 >
     {name}

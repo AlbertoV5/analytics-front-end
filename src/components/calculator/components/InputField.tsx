@@ -3,6 +3,7 @@ export interface InputFieldProps extends React.PropsWithChildren {
     name?: string;
 }
 
+/** Generic Input Field wrapper*/
 export const InputField = ({name, id, children}: InputFieldProps) => {
     return (
         <div className="row align-items-center pt-3 border-top">

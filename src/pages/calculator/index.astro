@@ -1,11 +1,15 @@
 ---
-import Layout from '../../layouts/Layout.astro';
-import CalculatorIsland from "../../components/calculator/CalculatorIsland"
+import MainNarrow from '../../layouts/MainNarrow.astro';
+import UserData from '../../components/userdata/UserData';
+import CalculatorForm from "../../components/calculator/CalculatorForm";
+
+const BASE_URL = import.meta.env.BASE_URL;
 ---
 
-<Layout title="Predict">
+<MainNarrow title="Calculator">
 	<h2>Congenital Heart Diseases</h2>
 	<h6 class="mb-4">Estimates days in Intensive Care</h6>
-	<CalculatorIsland client:load></CalculatorIsland>
+    <UserData client:only redirectURL={`${BASE_URL}login`} show={false}/>
+	<CalculatorForm client:load />
 	<div class="mb-4"></div>
-</Layout>
+</MainNarrow>

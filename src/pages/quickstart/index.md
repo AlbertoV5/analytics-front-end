@@ -1,5 +1,5 @@
 ---
-layout: ../../layouts/WideLayout.astro
+layout: ../../layouts/MainWide.astro
 title: Quickstart
 ---
 <style>
