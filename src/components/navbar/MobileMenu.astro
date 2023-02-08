@@ -1,0 +1,19 @@
+<div 
+    id="offcanvasWithBothOptions" 
+    class="offcanvas offcanvas-top bg-primary text-light" 
+    data-bs-scroll="true" tabindex={-1} 
+    aria-labelledby="offcanvasWithBothOptionsLabel"
+>
+    <div class="offcanvas-header border-bottom border-secondary d-flex justify-content-center">
+        <h5 class="offcanvas-title text-center" id="offcanvasWithBothOptionsLabel">
+            Health Analytics MX
+        </h5>
+    </div>
+    <div class="offcanvas-body d-flex justify-content-center">
+        <div id="main-left-spacer" class="col-2 col-md-4"></div>
+        <div class="col-8 col-md-4">
+            <slot/>
+        </div>
+        <div id="main-left-spacer" class="col-2 col-md-4"></div>
+    </div>
+</div>

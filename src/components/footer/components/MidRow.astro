@@ -1,0 +1,30 @@
+---
+interface Props {
+    links: {name: string, href: string}[]
+}
+const { links } = Astro.props;
+---
+<section class="row">
+    <ul class="col-12 col-md-2 py-2">{links.map(link => (
+        <li id={`${link.name.toLowerCase()}-footer`}>
+            <a class="footer-link" id={`${link.name.toLowerCase()}-footer-link`} href={link.href}>
+                {link.name}
+            </a>
+        </li>
+    ))}
+    </ul>
+    <div class="col-12 col-md-8 col-lg-5  py-2 vstack gap-2">
+        <div class="col-12 col-md-8 d-md-none">
+            <h1 class="footer-header">
+                About Health Analytics MX
+            </h1>
+        </div>
+        <p class="footer-text">
+            We are a team of passionate people whose goal is to improve everyone's life through disruptive products. We build great products to solve your business problems.
+        </p>
+        <p class="footer-text">
+            Our products are designed for small to medium size companies willing to optimize their performance.
+        </p>
+    </div>
+    <div id="footer-row-1-col-3" class="col-12 col-md-2 col-lg-5"></div>
+</section>

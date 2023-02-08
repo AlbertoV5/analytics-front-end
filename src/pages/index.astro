@@ -1,0 +1,23 @@
+---
+import Layout from '../layouts/Layout.astro';
+import LoginButton from "../components/navbar/components/LoginButton.astro";
+import ContactButton from '../components/navbar/components/ContactButton.astro';
+
+---
+
+<Layout title="Health Analytics">
+	<section id="header-section" class="row d-flex justify-content-center py-2">
+		<header class="row text-center">
+			<h1>Health Analytics MX</h1>
+		</header>
+		<div class="row text-center py-4">
+			<p>
+				Artificial Intelligence Made Easy
+			</p>
+		</div>
+		<div style="width: 300px" class="d-flex justify-content-center">
+			<LoginButton idSuffix={'-homepage'}></LoginButton>
+			<ContactButton idSuffix={'-homepage'}></ContactButton>
+		</div>
+	</section>
+</Layout>

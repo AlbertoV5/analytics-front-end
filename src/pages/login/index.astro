@@ -1,0 +1,11 @@
+---
+import WideLayout from '../../layouts/WideLayout.astro';
+import LoginIsland from '../../components/login/LoginIsland';
+
+---
+
+<WideLayout title="Health Analytics">
+    <section id="user-section" class="row d-flex justify-content-center py-2">
+        <LoginIsland client:load />
+    </section>
+</WideLayout>

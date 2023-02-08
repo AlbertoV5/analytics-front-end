@@ -1,0 +1,28 @@
+---
+import TopRow from "./components/TopRow.astro";
+import MidRow from "./components/MidRow.astro";
+import BotRow from "./components/BotRow.astro";
+
+const links = [
+    {name: "Home", href: "/#footer"},
+    {name: "Quickstart", href: "/quickstart"},
+    {name: "Calculator", href: "/calculator"},
+    {name: "Database", href: "/database"},
+    {name: "Legal Notice", href: "/legal"},
+    {name: "Contact Us", href: 'https://health-analytics-mx.odoo.com/about-us'},
+]
+---
+<footer id="footer" class="bg-secondary">   
+    <div id="footer-wrapper" class="container-fluid footer-container">
+        <TopRow></TopRow>
+        <MidRow links={links}></MidRow>
+        <BotRow></BotRow>
+    </div>
+    <div id="footer-copyright" class="container-fluid sub-footer-container">
+        <section id="footer-copyright-content">
+            <p style="color: #555555;">
+                Copyright 2023 © Health Analytics MX
+            </p>
+        </section>
+    </div>
+</footer>

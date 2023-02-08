@@ -1,0 +1,22 @@
+---
+interface Props {
+    name?: string;
+    href?: string;
+    idSuffix?: string;
+}
+const {
+    name='Contact Us', 
+    href='https://health-analytics-mx.odoo.com/about-us', 
+    idSuffix='-contact-button'
+} = Astro.props;
+---
+<a
+    id={`contact-us${idSuffix}`} 
+    type="button"
+    class="btn btn-light border-0 rounded-0 mx-2" 
+    href={href}
+    style="font-weight: 500; height: 38px; text-align: center; vertical-align: middle;"
+    target={"_blank"}
+>
+    {name}
+</a>

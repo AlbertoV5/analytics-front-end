@@ -1,0 +1,11 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import CalculatorIsland from "../../components/calculator/CalculatorIsland"
+---
+
+<Layout title="Predict">
+	<h2>Congenital Heart Diseases</h2>
+	<h6 class="mb-4">Estimates days in Intensive Care</h6>
+	<CalculatorIsland client:load></CalculatorIsland>
+	<div class="mb-4"></div>
+</Layout>

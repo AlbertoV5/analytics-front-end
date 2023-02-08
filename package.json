@@ -1,0 +1,38 @@
+{
+  "name": "@example/basics",
+  "type": "module",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "styles": "sass src/styles/custom.scss public/custom.css",
+    "build": "sass src/styles/custom.scss public/custom.css && astro build",
+    "preview": "astro preview",
+    "astro": "astro"
+  },
+  "dependencies": {
+    "@astrojs/react": "^2.0.1",
+    "@astrojs/sitemap": "^1.0.1",
+    "@hookform/error-message": "^2.0.1",
+    "@tanstack/react-query": "^4.24.4",
+    "@types/react": "^18.0.27",
+    "@types/react-dom": "^18.0.10",
+    "amazon-cognito-identity-js": "^6.1.2",
+    "astro": "^2.0.2",
+    "astro-compress": "^1.1.29",
+    "astro-icon": "^0.8.0",
+    "astro-robots-txt": "^0.3.11",
+    "bootstrap": "^5.2.3",
+    "framer-motion": "^8.5.3",
+    "js-cookie": "^3.0.1",
+    "jwt-decode": "^3.1.2",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.43.0"
+  },
+  "devDependencies": {
+    "@types/js-cookie": "^3.0.2",
+    "sass": "^1.57.1"
+  }
+}

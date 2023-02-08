@@ -1,0 +1,15 @@
+---
+import logo50 from "../../../images/logo50.png"
+
+interface Props {
+    idSuffix?: string;
+}
+const { idSuffix = "-menu"} = Astro.props;
+---
+<a 
+    id={`logo-button${idSuffix}`} 
+    href="/" 
+    style="text-decoration: none; margin-right: 10px; margin-left: 3px;"
+>
+    <img src={logo50} alt="Health Analytics MX Logo" height="40px" width="40px"/>
+</a>

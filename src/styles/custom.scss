@@ -1,0 +1,108 @@
+// Override default variables before the import
+$primary: #003135;
+// $secondary: #5C8B8D;
+$secondary: #f2f2f3;
+$success: #5C8B8D;
+$info: #51718A;
+$offcanvas-vertical-height: 380px;
+$offcanvas-transition-duration: .4s;
+$placeholder-opacity-max: .2;
+$placeholder-opacity-min: .1;
+
+// Import Bootstrap and its default variables
+// @import 'bootstrap/scss/bootstrap.scss';
+@import "../../node_modules/bootstrap/scss/bootstrap.scss";
+// ----------
+// GLOBAL
+// ----------
+html {
+    background-color: $primary;
+    // margin: 0;
+    // height: 100%;
+    // overflow: scroll;
+}
+button {
+    background-color: $primary;
+}
+a {
+    color: #fff;
+}
+main {
+    min-height: 50vh;
+}
+nav {
+    z-index: 100;
+}
+.btn-primary {
+    color: #fff;
+}
+.btn-primary:hover {
+    color: #fff;
+}
+.btn-secondary {
+    color: #fff;
+}
+.btn-secondary:hover {
+    color: #fff;
+}
+.btn-success {
+    color: #fff;
+}
+.btn-success:hover {
+    color: #fff;
+}
+[astro-icon="menuIcon"] {
+    fill: white;
+}
+h1 {
+    font-weight: 600;
+}
+h2 {
+    font-weight: 400;
+}
+h3 {
+    font-weight: 400;
+}
+h6 {
+    color: #777777;
+    font-weight: 400;
+}
+// ----------
+// FOOTER
+// ----------
+.footer-container {
+    // padding: 2.5em 5em 3em 5em;
+    padding: 60px 11vw 16px 11vw;
+}
+.sub-footer-container {
+    // padding: 2.5em 5em 3em 5em;
+    padding: 1em 0em 0em 6vw;
+    background-color: #cccccc; 
+    height: 3.6em;
+}
+@include media-breakpoint-up(md) {
+    .footer-container {
+        // padding: 2.5em 5em 3em 6em;
+        padding: 60px 6vw 16px 6vw;
+    }
+}
+.footer-link {
+    text-decoration: none;
+    line-height: 1.6em;
+    color: #333333;
+}
+.footer-link:hover {
+    text-decoration: underline;
+    color: #000000;
+}
+.footer-header {
+    color: #333333;
+    font-weight: 400;
+    font-size: 1.15em;
+}
+footer li {
+    list-style-type: none;
+}
+// ----------
+// ICONS
+// ----------

@@ -1,0 +1,55 @@
+---
+import bootstrap from "bootstrap/dist/js/bootstrap.bundle.min.js?url";
+import Footer from "../components/footer/Footer.astro";
+import NavBar from "../components/navbar/NavBar.astro";
+
+export interface Props {
+	title: string;
+}
+const { title } = Astro.props;
+
+---
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>{title}</title>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Medical Calculators with Artificial Intelligence">
+		<meta name="author" content="Health Analytics MX">
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline'">
+		<meta http-equiv="Content-Security-Policy" content="object-src 'none'">
+		<script>
+			(window as any).global = window;
+		</script>
+		<script src={bootstrap}></script>
+		<script src="../scripts/navbar.js"></script>
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="stylesheet" type="text/css" href="/custom.css">
+	</head>
+	<body>
+		<style is:global>
+			html {
+				background-color: #003135; 
+			}
+			button {
+				background-color: #003135;
+			}
+			a {
+				color: #fff;
+			}
+		</style>
+		<NavBar></NavBar>
+		<main class="container-fluid py-5">
+			<section id="main-section-wrapper" class="row pt-2">
+				<aside id="main-section-left" class="col-1 col-md-3 col-lg-4"></aside>
+				<section id="main-section-center" class="col-10 col-md-6 col-lg-4">
+					<slot />
+				</section>
+				<aside id="main-section-right" class="col-1 col-md-3 col-lg-4"></aside>
+			</section>
+		</main>
+		<Footer></Footer>
+	</body>
+</html>
