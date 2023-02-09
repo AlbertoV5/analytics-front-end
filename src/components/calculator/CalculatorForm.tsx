@@ -71,6 +71,22 @@ const CalculatorFormData = () => {
         enabled: true
     })
     // ------------------------------------------------------------
+    // Fetch valid variables Query: onLoad.
+    // ------------------------------------------------------------
+    const {isLoading, error, data: metrics} = useQuery({
+        queryKey: ['metrics'],
+        queryFn: () => getSession()
+        .then(session =>
+            fetch(`${ML_URL}/stay_days/metrics?rank_stats=false&rank_spearman=false&clfs_scores=false&pred_score=false`, {
+                method:'GET',
+                headers: getHeaders(session.token)
+            })
+            .then(response => response.json())
+            .then(data => data.rank_criteria.criteria as any)
+        ).catch(null),
+        enabled: true
+    })
+    // ------------------------------------------------------------
     // Fetch prediction data Query: onSubmit.
     // ------------------------------------------------------------
     const { isLoading: predLoading, error: predError, data: pred, refetch: fetchPred} = useQuery({
@@ -107,6 +123,15 @@ const CalculatorFormData = () => {
         setDiagnosis(prev => prev.filter((_, i) => i !== index))
         const count = Number.parseInt(getValues(fieldsData.diagnosisCount.id));
         setValue(fieldsData.diagnosisCount.id, count - 1);
+    }
+    const calculateVar = (value: number, iqr: number) => {
+        const val = Math.round(value);
+        const top = val + Math.round(iqr/2);
+        const bot = val - Math.round(iqr/2);
+        return (
+            `El paciente tendrá una estancia aproximada de ${val} días.
+            Los días de estancia pueden variar en un rango de ${bot} y ${top} días.`
+        )
     }
     return (
         <form onSubmit={handleSubmit(fetchPred)} className="text-start">
@@ -219,15 +244,12 @@ const CalculatorFormData = () => {
                                 Results
                             </h5>
                             <ul className={"w-100 m-0 p-0"} style={{listStyleType: "none"}}>
-                                <li>
-                                    Rank: {pred?.rank}
-                                </li>
-                                <li>
-                                    Pred: {pred?.pred.toString().slice(0, 4)}
-                                </li>
-                                <li>
-                                    Clfs: {pred?.clfs.map(c => (`${c.name}-${c.value} | `))}
-                                </li>
+                                {
+                                    !pred || !metrics ? null
+                                    : pred?.rank <= 8 ?
+                                    `${calculateVar(pred.pred, metrics?.filter(m => m.rank === pred.rank)[0].iqr)}`
+                                    : `${pred.rank} - Se requieren mayor número de datos para obtener la predicción deseada.`
+                                }
                             </ul>
                         </div>
                     </div>

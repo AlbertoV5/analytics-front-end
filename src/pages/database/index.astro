@@ -12,9 +12,13 @@ const BASE_URL = import.meta.env.BASE_URL;
     <p class="form-text">
         All patient data is de-identified as per HIPAA specifications.
     </p>
-    <h6 class='border border-bottom-0 p-2 bg-secondary mb-0'>
-        Patient Table
-    </h6>
+    <!-- <div class='d-flex border border-bottom-0 p-2 bg-secondary mb-0 justify-content-between'> -->
+    <div>
+        <h6 class='d-flex border border-bottom-0 p-2 bg-secondary mb-0 justify-content-between' style="display: inline;">
+            Patient Table
+        </h6>
+        <!-- <input type="number" class="form-control" style="width: 180px; height: 80%; padding: 0px;"/> -->
+    </div>
     <PatientTable client:visible></PatientTable>
     <p class="form-text">
         All diagnosis data is linked to an ICD-11 code.

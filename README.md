@@ -75,3 +75,10 @@ Slogan: Artificial Intelligence Made Easy
 5. Improve classification results description
 6. Define cluster and metrics visualizations
 7. Add a third step in Calculator: consult metrics
+
+
+## TODO 
+
+User experience:
+- Ordenar por ID 
+- Buscador

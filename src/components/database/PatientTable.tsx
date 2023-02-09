@@ -3,6 +3,8 @@ import { API_URL, getHeaders } from '../config';
 import { useSession } from '../login/hooks/useSession';
 import { useQuery, QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import TableControls from './components/TableControls';
+import { Input } from '../login/components/Input';
+import { InputField } from '../calculator/components/InputField';
 
 
 export interface PatientData {
@@ -56,7 +58,7 @@ const PatientTableData = () => {
             .then(response => response.json())
             .then(data => data as PatientData[])
         ).catch(() => []),
-        enabled: true
+        enabled: false
     })
     return (
         <>
