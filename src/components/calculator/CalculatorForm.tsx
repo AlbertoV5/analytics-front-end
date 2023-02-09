@@ -252,11 +252,7 @@ const CalculatorFormData = () => {
                                 Results
                             </h5>
                             <ul className={"w-100 m-0 p-0"} style={{listStyleType: "none"}}>
-                                {evaluateResults()
-                                    // : pred?.rank <= 8
-                                    //     ? `${calculateVar(pred.pred, metrics?.filter(m => m.rank === pred.rank)[0].iqr)}`
-                                    //     : `Se requieren mayor número de datos para obtener la predicción deseada.(${pred.rank})`
-                                }
+                                {evaluateResults()}
                             </ul>
                         </div>
                     </div>
