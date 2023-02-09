@@ -28,16 +28,7 @@ const BASE_URL = import.meta.env.BASE_URL;
 		<meta name="generator" content={Astro.generator} />
 		<meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline'">
 		<meta http-equiv="Content-Security-Policy" content="object-src 'none'">
-		<script>
-			(window as any).global = window;
-		</script>
-		<script src={bootstrap}></script>
-		<script src="../scripts/navbar.js"></script>
-		<link rel="icon" type="image/svg+xml" href={`${BASE_URL}favicon.svg`}/>
-		<link rel="stylesheet" type="text/css" href={`${BASE_URL}custom.css`}>
-	</head>
-	<body>
-		<style is:global>
+		<style is:inline>
 			html {
 				background-color: #003135; 
 			}
@@ -48,6 +39,15 @@ const BASE_URL = import.meta.env.BASE_URL;
 				color: #fff;
 			}
 		</style>
+		<script>
+			(window as any).global = window;
+		</script>
+		<script src={bootstrap}></script>
+		<script src="../scripts/navbar.js"></script>
+		<link rel="icon" type="image/svg+xml" href={`${BASE_URL}favicon.svg`}/>
+		<link rel="stylesheet" type="text/css" href={`${BASE_URL}custom.css`}>
+	</head>
+	<body>
 		<NavBar/>
 		<slot/>
 		<Footer/>

@@ -17,6 +17,6 @@ export default defineConfig({
   // site: 'https://main.d3a2hjahy8dg4j.amplifyapp.com',
   site: 'https://health-analytics-mx.github.io/ai-calculators/',
   base: '/ai-calculators',
-  integrations: [react(), robotsTxt(), sitemap(), compress()],
+  integrations: [react(), robotsTxt(), sitemap()]//, compress()],
   // output: 'server'
 });
