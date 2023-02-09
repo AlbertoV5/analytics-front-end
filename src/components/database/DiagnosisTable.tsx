@@ -1,16 +1,8 @@
 import { useState } from 'react'
-import { API_URL, getHeaders } from '../config';
 import { useSession } from '../login/hooks/useSession';
 import { useQuery, QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import TableControls from './components/TableControls';
-
-export interface TableData {
-    token: string;
-    diagnosis: string;
-    diagnosis_en: string;
-    icd11_code: string;
-    icd11_title: string;
-}
+import { fetchDiagnosisPage } from './api/fetch';
 
 const headerData = [
     // "Token",
@@ -19,7 +11,6 @@ const headerData = [
     "Code",
     "ICD-11",
 ]
-
 
 const queryClient = new QueryClient()
 
@@ -39,15 +30,10 @@ const DiagnosisTableData = () => {
     
     const { isLoading, error, data } = useQuery({
         queryKey: ['diagnosisData', page],
-        queryFn: () => getSession()
-        .then(session =>
-            fetch(`${API_URL}/diagnosis/?offset=${page*pageSize}&limit=${pageSize}`, {
-                method:'GET',
-                headers: getHeaders(session.token)
-            })
-            .then(response => response.json())
-            .then(data => data as TableData[])
-        ).catch(() => []),
+        queryFn: () => getSession().then(session => 
+            fetchDiagnosisPage(session.token, page, pageSize)
+            .then(diagnosis => diagnosis)
+        ),
         enabled: true
     })
     return (

@@ -11,29 +11,25 @@ export interface DecodedToken {
     'cognito:username': string;
     'custom:client': string;
 }
-export type GetTokensFunction = {
-    (): Tokens | undefined
-}
-export type GetUserFunction = {
-    (): User | undefined
-}
-export type SetSessionFunction = {
-    (tokens: Tokens | undefined): void
-}
-export type GetSessionFunction = {
-    (): Promise<UserSession>
-}
 export interface UserSession {
     user: User;
     token: string;
 }
 export interface TokenResponse {
-    id_token: string
+    id_token: string;
 }
 export interface SessionCallbacks {
-    getUser: GetUserFunction;
-    setSession: SetSessionFunction;
-    getSession: GetSessionFunction;
+    /** Replace current session with new tokens. This will decode the JWT id token to get
+     * the user data. Use this on user login.
+     */
+    setSession: (tokens: Tokens | undefined) => void;
+    /** Validate and return user session. Attempt to refresh if expired. Otherwise error. 
+        1. Load the user data and verify its expiration date.
+        2. If it hasn't expired, load the token, and return the session.
+        3. If it expired, load the refresh and make an API call to the token endpoint.
+        4. If the API call is ok, then set and return the session with the new tokens.
+    */
+    getSession: () => Promise<UserSession>;
 }
 
 /** Decode JWT and get user data*/
@@ -73,13 +69,7 @@ const refreshToken = (): Promise<Tokens> => new Promise(async (resolve, reject) 
     return reject(response.status);
 })
 
-/** Validate and return user session. Attempt to refresh if expired. Otherwise error. 
-    1. Load the user data and verify its expiration date.
-    2. If it hasn't expired, load the token, and return the session.
-    3. If it expired, load the refresh and make an API call to the token endpoint.
-    4. If the API call is ok, then set and return the session with the new tokens.
-    5. TODO: Replace expired verification with server validation via provider.
-*/
+/** TODO: Replace expired verification with server validation via provider. */
 const getSession = (): Promise<UserSession> => new Promise(async (resolve, reject) => {
     const user = getUserCookies();
     if (user && Number.parseInt(user.exp) > Math.floor(Date.now() / 1000)){
@@ -93,9 +83,5 @@ const getSession = (): Promise<UserSession> => new Promise(async (resolve, rejec
 
 /** Get callbacks for retrieving credentials, storing them, and validate them.*/
 export const useSession = (): SessionCallbacks => {
-    return {
-        getUser: getUserCookies,
-        setSession: setSession,
-        getSession: getSession,
-    }
+    return { setSession: setSession, getSession: getSession }
 }

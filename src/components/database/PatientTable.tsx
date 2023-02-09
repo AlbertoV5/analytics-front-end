@@ -1,23 +1,12 @@
 import { useState } from 'react'
-import { API_URL, getHeaders } from '../config';
 import { useSession } from '../login/hooks/useSession';
 import { useQuery, QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import TableControls from './components/TableControls';
 import { Input } from '../login/components/Input';
 import { InputField } from '../calculator/components/InputField';
 
+import { fetchPatientPage } from './api/fetch';
 
-export interface PatientData {
-    patient_id: number;
-    gender: number;
-    age_days: number;
-    weight_kg: number;
-    height_cm: number;
-    cx_prev: number;
-    rachs: number;
-    stay_days: number;
-    expired: number;
-}
 
 const headerData = [
     "ID",
@@ -49,15 +38,10 @@ const PatientTableData = () => {
     
     const { isLoading, error, data } = useQuery({
         queryKey: ['patientData', page],
-        queryFn: () => getSession()
-        .then(session => 
-            fetch(`${API_URL}/patient/?offset=${page*pageSize}&limit=${pageSize}`, {
-                method:'GET',
-                headers: getHeaders(session.token)
-            })
-            .then(response => response.json())
-            .then(data => data as PatientData[])
-        ).catch(() => []),
+        queryFn: () => getSession().then(session => 
+            fetchPatientPage(session.token, page, pageSize)
+            .then(patient => patient)
+        ),
         enabled: true
     })
     return (

@@ -24,9 +24,12 @@ const LoginIsland = ({redirect_url}: {redirect_url: string}) => {
     const { getSession } = useSession();
     const [form, setForm] = useState<FormState>('login');
     const [payload, setPayload] = useState<Payload>({});
+    
     useEffect(() => {
         getSession()
-        .then(session => setForm('logout'))
+        .then(session => {
+            setForm('logout')
+        })
         .catch(e => e === 'INVALID_SESSION' ? setForm('login') : null);
     }, [])
 
