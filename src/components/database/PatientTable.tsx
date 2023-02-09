@@ -58,7 +58,7 @@ const PatientTableData = () => {
             .then(response => response.json())
             .then(data => data as PatientData[])
         ).catch(() => []),
-        enabled: false
+        enabled: true
     })
     return (
         <>
