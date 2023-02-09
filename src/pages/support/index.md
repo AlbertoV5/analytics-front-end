@@ -12,7 +12,7 @@ title: Quickstart
     }
 </style>
 
-## Quickstart
+## Support
 
 ### Medical Calculators
 
