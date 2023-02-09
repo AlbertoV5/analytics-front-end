@@ -129,6 +129,7 @@ const CalculatorFormData = () => {
         const count = Number.parseInt(getValues(fieldsData.diagnosisCount.id));
         setValue(fieldsData.diagnosisCount.id, count - 1);
     }
+    /** Compute a sentence based on the numeric values of the result. */
     const evaluateResults = () => {
         if (!pred || !metrics) return null;
         const val = Math.round(pred.pred);
