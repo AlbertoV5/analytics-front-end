@@ -21,7 +21,7 @@ const links = [
     class="navbar shadow-sm sticky-top bg-primary"
 >
     <section id="navbar-content" class="container" style="height: 40px;">
-        <div id="nav-buttons" class="d-none d-md-block">
+        <div id="nav-buttons" class="d-none d-md-block text-center">
             <LogoButton idSuffix={'desktop'}></LogoButton>
             {links.map(link => (
                 <NavButton name={link.name} href={`${URL}${link.href}`}/>
@@ -41,7 +41,7 @@ const links = [
     </section>
 </nav>
 <MobileMenu>
-    <div id="nav-buttons-mobile" class="vstack gap-2">
+    <div id="nav-buttons-mobile" class="vstack gap-2 text-center">
         {links.map(link => (
             <NavButton name={link.name} href={`${URL}${link.href}`} idSuffix={'-offside'}/>
         ))}

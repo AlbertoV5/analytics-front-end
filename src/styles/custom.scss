@@ -1,5 +1,7 @@
 // Override default variables before the import
-$primary: #003135;
+$primary: #38383B;
+$primary-hover: #323238;
+$dark-hover: #222222;
 // $secondary: #5C8B8D;
 $secondary: #f2f2f3;
 $success: #5C8B8D;
@@ -33,22 +35,40 @@ main {
 nav {
     z-index: 100;
 }
-.btn-primary {
+.logo-text-a {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+}
+.nav-button {
+    background-color: $primary;
+    text-decoration: none;
+    font-weight: 500;
+    margin: 0px 5px 0px 2px;
+    padding: 8px 12px;
+}
+.nav-button-light {
+    background-color: $light;
+    color: $dark;
+    text-decoration: none;
+    font-weight: 500;
+    margin: 0px 5px 0px 2px;
+    padding: 8px 12px;
+}
+.nav-button-light:hover {
+    color: $dark-hover;
+    background-color: #eeeeee;
+}
+.nav-button:hover {
+    color: #ffffff;
+    background-color: $primary-hover;
+}
+.btn-primary, .btn-primary:hover {
     color: #fff;
 }
-.btn-primary:hover {
+.btn-secondary, .btn-secondary:hover {
     color: #fff;
 }
-.btn-secondary {
-    color: #fff;
-}
-.btn-secondary:hover {
-    color: #fff;
-}
-.btn-success {
-    color: #fff;
-}
-.btn-success:hover {
+.btn-success, .btn-success:hover {
     color: #fff;
 }
 [astro-icon="menuIcon"] {
