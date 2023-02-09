@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useSession } from '../login/hooks/useSession';
 import { useQuery, QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import TableControls from './components/TableControls';
-import { fetchDiagnosisPage } from './api/fetch';
+import { fetchDiagnosisPage } from './api/methods';
 
 const headerData = [
     // "Token",

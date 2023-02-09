@@ -5,7 +5,7 @@ import TableControls from './components/TableControls';
 import { Input } from '../login/components/Input';
 import { InputField } from '../calculator/components/InputField';
 
-import { fetchPatientPage } from './api/fetch';
+import { fetchPatientPage } from './api/methods';
 
 
 const headerData = [

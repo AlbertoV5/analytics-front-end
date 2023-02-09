@@ -6,7 +6,7 @@ import { useState } from "react";
 import DynamicFields from "./components/DynamicList";
 import NumberField from "./components/NumberField";
 
-import { fetchValidVariables, fetchPrediction, fetchMetrics } from "./api/fetch";
+import { fetchValidVariables, fetchPrediction, fetchMetrics } from "./api/methods";
 
 
 const numericFields = [
@@ -166,7 +166,7 @@ const CalculatorFormData = () => {
                 <button type="submit" className="btn btn-success">
                     Calculate
                 </button>
-                <div className="card bg-info text-light">
+                <div className="card bg-info text-light px-0">
                     <div className="card-body vstack">
                         <h5>
                             Results
