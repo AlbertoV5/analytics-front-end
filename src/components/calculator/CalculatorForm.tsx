@@ -21,6 +21,11 @@ interface ValidVariablesData {
     diagnosis: string[];
 }
 
+interface RankCriteria {
+    rank: number; 
+    iqr: number;
+}
+
 interface PredictionData {
     rank: number;
     pred: number;
@@ -82,7 +87,7 @@ const CalculatorFormData = () => {
                 headers: getHeaders(session.token)
             })
             .then(response => response.json())
-            .then(data => data.rank_criteria.criteria as any)
+            .then(data => data.rank_criteria.criteria as RankCriteria[])
         ).catch(null),
         enabled: true
     })
@@ -124,14 +129,17 @@ const CalculatorFormData = () => {
         const count = Number.parseInt(getValues(fieldsData.diagnosisCount.id));
         setValue(fieldsData.diagnosisCount.id, count - 1);
     }
-    const calculateVar = (value: number, iqr: number) => {
-        const val = Math.round(value);
+    const evaluateResults = () => {
+        if (!pred || !metrics) return null;
+        const val = Math.round(pred.pred);
+        if (pred?.rank > 8)
+            return `Se requieren mayor número de datos para obtener la predicción deseada. 
+            rank: ${pred.rank} - pred: ${val}`
+        const iqr = metrics?.filter(m => m.rank === pred.rank)[0].iqr;
         const top = val + Math.round(iqr/2);
         const bot = val - Math.round(iqr/2);
-        return (
-            `El paciente tendrá una estancia aproximada de ${val} días.
-            Los días de estancia pueden variar en un rango de ${bot} y ${top} días.`
-        )
+        return `El paciente tendrá una estancia aproximada de ${val} días.
+        Los días de estancia pueden variar en un rango de ${bot} y ${top} días.`
     }
     return (
         <form onSubmit={handleSubmit(fetchPred)} className="text-start">
@@ -244,11 +252,10 @@ const CalculatorFormData = () => {
                                 Results
                             </h5>
                             <ul className={"w-100 m-0 p-0"} style={{listStyleType: "none"}}>
-                                {
-                                    !pred || !metrics ? null
-                                    : pred?.rank <= 8 ?
-                                    `${calculateVar(pred.pred, metrics?.filter(m => m.rank === pred.rank)[0].iqr)}`
-                                    : `${pred.rank} - Se requieren mayor número de datos para obtener la predicción deseada.`
+                                {evaluateResults()
+                                    // : pred?.rank <= 8
+                                    //     ? `${calculateVar(pred.pred, metrics?.filter(m => m.rank === pred.rank)[0].iqr)}`
+                                    //     : `Se requieren mayor número de datos para obtener la predicción deseada.(${pred.rank})`
                                 }
                             </ul>
                         </div>
