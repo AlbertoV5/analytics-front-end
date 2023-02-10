@@ -11,3 +11,11 @@ window.addEventListener('scroll', () => {
     }
     prev = current;
 });
+// active
+const navbarLinks = document.querySelectorAll('.nav-button');
+const currentUrl = window.location.pathname;
+navbarLinks.forEach(link => {
+    if (link.getAttribute('href') === currentUrl) {
+        link.classList.add('nav-button-active');
+    }
+});

@@ -4,6 +4,7 @@ import { getTokenCookie, getRefreshCookie, setTokensCookies,  getUserCookies, se
 import type { Tokens, User } from "../auth/cookies";
 import { fetchTokenRefresh } from "../auth/fetch";
 import jwt_decode from "jwt-decode";
+import { getRefreshToken } from "../auth/user";
 
 
 export interface DecodedToken {
@@ -77,8 +78,8 @@ const getSession = (): Promise<UserSession> => new Promise(async (resolve, rejec
         return token ? resolve({user: user, token: token}) : reject('INVALID_SESSION')
     }
     return refreshToken()
-    .then(tokens => resolve(setSession(tokens)))
-    .catch(e => reject('INVALID_SESSION'))
+        .then(tokens => resolve(setSession(tokens)))
+        .catch(e => reject('INVALID_SESSION'))
 })
 
 /** Get callbacks for retrieving credentials, storing them, and validate them.*/
