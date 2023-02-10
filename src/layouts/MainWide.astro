@@ -5,10 +5,11 @@ import Layout from "./Layout.astro";
 // Astro Props
 export interface Props {
 	title: string;
+    redirectUser?: boolean;
 }
-const { title } = Astro.props;
+const { title, redirectUser=false } = Astro.props;
 ---
-<Layout title={title}>
+<Layout title={title} redirectUser={redirectUser}>
     <main class="container-fluid py-5">
         <section id="main-section-wrapper" class='row pt-2'>
             <aside id="main-aside-left" class='col-1'></aside>

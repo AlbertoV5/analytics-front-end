@@ -1,14 +1,11 @@
 ---
 import MainWide from "../../layouts/MainWide.astro";
-import UserData from "../../components/userdata/UserData";
 import PatientTable from "../../components/database/PatientTable";
 import DiagnosisTable from "../../components/database/DiagnosisTable";
 
-const BASE_URL = import.meta.env.BASE_URL;
 ---
-<MainWide title={ 'Database' }>
-    <h2 style="text-align: center;">Database</h2>
-    <UserData client:only redirectURL={`${BASE_URL}login`}></UserData>
+<MainWide title={ 'Database' } redirectUser={true}>
+    <h2 class="pb-2" style="text-align: center;">Database</h2>
     <p class="form-text">
         All patient data is de-identified as per HIPAA specifications.
     </p>

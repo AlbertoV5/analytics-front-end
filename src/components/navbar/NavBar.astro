@@ -2,12 +2,12 @@
 import NavButton from './components/NavButton.astro'
 import LoginButton from './components/LoginButton.astro'
 import ContactButton from './components/ContactButton.astro'
-
 import LogoButton from './components/LogoButton.astro'
+
 import MobileMenuButton from './components/MobileMenuButton.astro'
 import MobileMenu from './MobileMenu.astro'
 
-const URL = import.meta.env.BASE_URL;
+const BASE_URL = import.meta.env.BASE_URL;
 const links = [
     // {name: "Home", href: "/"},
     {name: "Calculator", href: "calculator"},
@@ -16,16 +16,17 @@ const links = [
     {name: "Support", href: "support"},
 ]
 const height = "40px";
+// sticky-top
 ---
 <nav
     id="navbar"
-    class="navbar shadow-sm sticky-top bg-primary"
+    class="navbar sticky-top shadow-sm bg-primary"
 >
     <section id="navbar-content" class="container" style={`height: ${height};`}>
         <div id="nav-buttons" class="d-none d-md-block">
             <LogoButton idSuffix={'desktop'}></LogoButton>
             {links.map(link => (
-                <NavButton name={link.name} href={`${URL}${link.href}`}/>
+                <NavButton name={link.name} href={`${BASE_URL}${link.href}`}/>
             ))}
         </div>
         <div id="user-buttons" class="d-none d-md-block">
@@ -44,7 +45,7 @@ const height = "40px";
 <MobileMenu>
     <div id="nav-buttons-mobile" class="vstack gap-2 text-center">
         {links.map(link => (
-            <NavButton name={link.name} href={`${URL}${link.href}`} idSuffix={'-offside'}/>
+            <NavButton name={link.name} href={`${BASE_URL}${link.href}`} idSuffix={'-offside'}/>
         ))}
         <LoginButton idSuffix='-offside'></LoginButton>
         <ContactButton idSuffix='-offside'></ContactButton>

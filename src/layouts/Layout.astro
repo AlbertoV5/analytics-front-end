@@ -2,6 +2,7 @@
 import bootstrap from "bootstrap/dist/js/bootstrap.bundle.min.js?url";
 import Footer from "../components/footer/Footer.astro";
 import NavBar from "../components/navbar/NavBar.astro";
+import UserBar from "../components/userbar/UserBar.astro";
 
 // SEO tags
 const metaTags = [
@@ -12,8 +13,9 @@ const metaTags = [
 // Astro Props
 export interface Props {
 	title: string;
+	redirectUser?: boolean;
 }
-const { title } = Astro.props;
+const { title, redirectUser=false } = Astro.props;
 
 // Config
 const BASE_URL = import.meta.env.BASE_URL;
@@ -52,6 +54,7 @@ const BASE_URL = import.meta.env.BASE_URL;
 	</head>
 	<body>
 		<NavBar/>
+		<UserBar redirectUser={redirectUser}/>
 		<slot/>
 		<Footer/>
 	</body>
