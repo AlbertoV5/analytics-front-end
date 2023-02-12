@@ -31,7 +31,7 @@ export default function UserData({redirectURL, redirect = true}: UserDataProps) 
     }
     return (
         <div
-            id="user-data-info" 
+            id="user-data-info"
             className='fw-light d-flex justify-content-between w-100'
             style={{listStyleType: "none", paddingLeft: "8px", lineHeight: "1.2em"}}
         >

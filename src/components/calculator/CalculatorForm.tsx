@@ -135,6 +135,8 @@ const CalculatorFormData = () => {
         const bot = val - Math.round(iqr/2);
         return `El paciente tendrá una estancia aproximada de ${val} días.
         Los días de estancia pueden variar en un rango de ${bot} y ${top} días.`
+        // return `El paciente tendrá una estancia aproximada de ${val} días.
+        // Los días de estancia pueden variar en un rango de ${bot} y ${top} días.`
     }
     return (
         <form onSubmit={handleSubmit(() => setSubmitted(true))} className="text-start">
