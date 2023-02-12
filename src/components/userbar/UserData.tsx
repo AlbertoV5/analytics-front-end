@@ -33,7 +33,7 @@ export default function UserData({redirectURL, redirect = true}: UserDataProps) 
         <div
             id="user-data-info" 
             className='fw-light d-flex justify-content-between w-100'
-            style={{listStyleType: "none", paddingLeft: "0px", lineHeight: "1.2em"}}
+            style={{listStyleType: "none", paddingLeft: "8px", lineHeight: "1.2em"}}
         >
             <p className="mx-2">Welcome, {userSession.user.username}.</p>
             <p className="mx-2">Your Trial license is valid through 2023.</p>

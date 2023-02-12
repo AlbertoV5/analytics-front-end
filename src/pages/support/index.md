@@ -44,7 +44,7 @@ Across the top of the screen is our menu or navigation bar. At the present time 
 
 ### Calculator
 
-<ul style="list-style-type:none; padding-left: 12px;">
+<ul style="list-style-type:none; padding-left: 10px;">
 <li> <b>Age:</b> Patient’s age (days).</li>
 <li> <b>Weight:</b> Patient’s weight (kilograms).</li>
 <li> <b>Height:</b> Patient’s height (centimeters).</li>
