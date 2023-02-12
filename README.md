@@ -82,3 +82,10 @@ Slogan: Artificial Intelligence Made Easy
 User experience:
 - Ordenar por ID 
 - Buscador
+
+## Userbar
+
+- Logged In:
+  - Welcome, {name}. Your Trial license is valid through {date}.
+- Logged Out:
+  - Sales pitch?

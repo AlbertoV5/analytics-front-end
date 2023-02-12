@@ -32,13 +32,14 @@ export default function UserData({redirectURL, redirect = true}: UserDataProps) 
     return (
         <div
             id="user-data-info" 
-            className='fw-light d-flex justify-content-end w-100'
+            className='fw-light d-flex justify-content-between w-100'
             style={{listStyleType: "none", paddingLeft: "0px", lineHeight: "1.2em"}}
         >
-            <p className="mx-2"><b>user: </b>{userSession.user.username}</p>
-            {userSession.user.client !== "undefined" 
+            <p className="mx-2">Welcome, {userSession.user.username}.</p>
+            <p className="mx-2">Your Trial license is valid through 2023.</p>
+            {/* {userSession.user.client !== "undefined" 
             ? <p className="mx-2"><b>org: </b>{userSession.user.client}</p>
-            : null}
+            : null} */}
         </div>
     )
 }

@@ -3,10 +3,13 @@ $primary: #393d3f;
 $primary-hover: #303335;
 $dark-hover: #222222;
 // $secondary: #5C8B8D;
-$secondary: #f2f2f3;
+// $secondary: #f2f2f3;
+$secondary: #778899;
 $success: #62929E;
+$success: #1976d2;
 // $success: #134074;
 $info: #546a7b;
+$info: #778899;
 $offcanvas-vertical-height: 380px;
 $offcanvas-transition-duration: .4s;
 $placeholder-opacity-max: .2;
@@ -42,13 +45,13 @@ nav {
 }
 .logo-text {
     font-family: 'Montserrat', sans-serif;
-    font-weight: 600;
+    font-weight: 400;
 }
 .nav-button {
     background-color: $primary;
     color: #fdfdff;
     text-decoration: none;
-    font-weight: 500;
+    font-weight: 200;
     margin: 0px 5px 0px 2px;
     padding: 8px 12px;
     border-radius: 6px;
@@ -86,7 +89,7 @@ nav {
     fill: white;
 }
 h1 {
-    font-weight: 600;
+    font-weight: 400;
 }
 h2 {
     font-weight: 400;
