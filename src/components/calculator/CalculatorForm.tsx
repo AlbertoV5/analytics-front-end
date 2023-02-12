@@ -127,14 +127,15 @@ const CalculatorFormData = () => {
         }
         const val = Math.round(prediction.pred);
         if (prediction?.rank > 8){
-            return `Se requieren mayor número de datos para obtener la predicción deseada. 
-            rank: ${prediction.rank} - pred: ${val}`
+            return `More data is required for making a prediction.`
+            // return `Se requieren mayor número de datos para obtener la predicción deseada. 
+            // rank: ${prediction.rank} - pred: ${val}`
         }
         const iqr = metrics.rank_criteria.criteria.filter(m => m.rank === prediction.rank)[0].iqr;
         const top = val + Math.round(iqr/2);
         const bot = val - Math.round(iqr/2);
-        return `El paciente tendrá una estancia aproximada de ${val} días.
-        Los días de estancia pueden variar en un rango de ${bot} y ${top} días.`
+        return `The patient will have an approximate stay of ${val} days.
+        The number of stay days can vary from ${bot} to ${top} días.`
         // return `El paciente tendrá una estancia aproximada de ${val} días.
         // Los días de estancia pueden variar en un rango de ${bot} y ${top} días.`
     }

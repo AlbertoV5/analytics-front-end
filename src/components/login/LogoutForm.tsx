@@ -36,8 +36,8 @@ const LogoutForm = ({setForm}: AuthFlowFormProps) => {
             value={(user && user.username !== 'undefined') ? user?.username : ''}
           />
           <Locked
-            name="Organization"
-            value={(user && user.client !== 'undefined') ? user?.client : ''}
+            name="Full Name"
+            value={(user && user.name !== 'undefined') ? user?.name : ''}
           />
         <div className={"d-flex justify-content-center pt-2"}>
           <button type="submit" className="btn btn-primary mx-1 rounded-0" style={{width: "5em", fontWeight: 500}}>

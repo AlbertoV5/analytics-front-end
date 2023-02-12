@@ -1,18 +1,29 @@
 ---
-import logo50 from "../../../images/logo50.png"
+import { Icon } from 'astro-icon';
 
 interface Props {
     idSuffix?: string;
+    mobile?: boolean;
 }
-const { idSuffix = "-menu"} = Astro.props;
+const { idSuffix = "-menu", mobile=false} = Astro.props;
 
 const URL = import.meta.env.BASE_URL;
 ---
+<style is:inline>
+    [astro-icon="hamx-logo"]{
+        width: 30px;
+        height: 30px;
+    }
+    </style>
 <a
-    id={`logo-button${idSuffix}`} 
-    href={`${URL}`}
-    class="nav-button"
+id={`logo-button${idSuffix}`} 
+href={`${URL}`}
+class="nav-button"
 >
-    <span class="logo-text">Health Analytics MX</span>
-    <!-- <img src={logo50} alt="Health Analytics MX Logo" height="40px" width="40px"/> -->
+    {
+        mobile ?
+        // <Icon name="hamx-logo" alt="Health Analytics MX Logo"></Icon>
+        'HAMX'
+        : <span class="logo-text">Health Analytics MX</span>
+    }
 </a>

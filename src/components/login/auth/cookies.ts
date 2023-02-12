@@ -10,7 +10,17 @@ export interface Tokens {
 export interface User {
   exp: string;
   username: string;
-  client: string;
+  name: string;
+  group: string;
+  licenseEnd: string;
+}
+
+const emptyUser: User = {
+  exp: '',
+  username: '',
+  name: '',
+  group: '',
+  licenseEnd: '',
 }
 
 export function setTokensCookies(tokens: Tokens){
@@ -19,9 +29,9 @@ export function setTokensCookies(tokens: Tokens){
 }
 
 export function setUserCookies(user: User) {
-  Cookies.set(`${COOKIE_PREFIX}-exp`, user.exp, {expires: COOKIE_DURATION});
-  Cookies.set(`${COOKIE_PREFIX}-username`, user.username, {expires: COOKIE_DURATION});
-  Cookies.set(`${COOKIE_PREFIX}-client`, user.client, {expires: COOKIE_DURATION});
+  Object.entries(user).forEach(([key, value]) => {
+    Cookies.set(`${COOKIE_PREFIX}-${key}`, value, {expires: COOKIE_DURATION});
+  })
 }
 
 export function getRefreshCookie(): string | undefined {
@@ -35,10 +45,12 @@ export function getTokenCookie(): string | undefined {
 export function getUserCookies(): User | undefined {
   const exp = Cookies.get(`${COOKIE_PREFIX}-exp`);
   const username = Cookies.get(`${COOKIE_PREFIX}-username`);
-  const client = Cookies.get(`${COOKIE_PREFIX}-client`);
+  const name = Cookies.get(`${COOKIE_PREFIX}-name`);
+  const group = Cookies.get(`${COOKIE_PREFIX}-group`);
+  const licenseEnd = Cookies.get(`${COOKIE_PREFIX}-licenseEnd`);
   return (
-      (exp && username && client) ? 
-      {exp: exp, username: username, client: client}
+      (exp && username && name && group && licenseEnd) ? 
+      {exp: exp, username: username, name: name, group: group, licenseEnd: licenseEnd}
       : undefined
   )
 }

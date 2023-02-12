@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useSession, UserSession } from "../login/hooks/useSession"
+import { useSession, UserSession } from "../login/hooks/useSession";
 
 
 interface UserDataProps {
@@ -33,10 +33,12 @@ export default function UserData({redirectURL, redirect = true}: UserDataProps) 
         <div
             id="user-data-info"
             className='fw-light d-flex justify-content-between w-100'
-            style={{listStyleType: "none", paddingLeft: "8px", lineHeight: "1.2em"}}
+            style={{listStyleType: "none", paddingLeft: "6px", lineHeight: "1.2em", fontSize: ".98em"}}
         >
-            <p className="mx-2">Welcome, {userSession.user.username}.</p>
-            <p className="mx-2">Your Trial license is valid through 2023.</p>
+            <p className="mx-2">Welcome, {userSession.user.name}.</p>
+            <p className="mx-2 d-none d-md-block">
+                Your license is valid through {userSession.user.licenseEnd}.
+            </p>
             {/* {userSession.user.client !== "undefined" 
             ? <p className="mx-2"><b>org: </b>{userSession.user.client}</p>
             : null} */}

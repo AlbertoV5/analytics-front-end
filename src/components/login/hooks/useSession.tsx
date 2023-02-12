@@ -4,13 +4,14 @@ import { getTokenCookie, getRefreshCookie, setTokensCookies,  getUserCookies, se
 import type { Tokens, User } from "../auth/cookies";
 import { fetchTokenRefresh } from "../auth/fetch";
 import jwt_decode from "jwt-decode";
-import { getRefreshToken } from "../auth/user";
 
 
 export interface DecodedToken {
     exp: number;
     'cognito:username': string;
-    'custom:client': string;
+    'name': string;
+    'cognito:groups'?: string[];
+    'custom:licenseEnd': string;
 }
 export interface UserSession {
     user: User;
@@ -36,10 +37,13 @@ export interface SessionCallbacks {
 /** Decode JWT and get user data*/
 export const parseToken = (token: string): User => {
     const decoded = (jwt_decode(token) as DecodedToken);
+    const groups =  decoded['cognito:groups'];
     return {
         exp: decoded.exp.toString(),
         username: decoded['cognito:username'],
-        client: decoded['custom:client'],
+        name: decoded['name'],
+        group: groups ? groups[groups.length - 1] : '', // get last group (lowest precedence)
+        licenseEnd: decoded['custom:licenseEnd'],
     }
 }
 
@@ -47,10 +51,10 @@ export const parseToken = (token: string): User => {
 const setSession = (tokens: Tokens | undefined): UserSession => {
     if (tokens === undefined){
         const tokens = {token: '', refresh: ''};
-        const user = {username: '', client: '', exp: ''};
+        const user = {username: '', name: '', exp: '', group: '', licenseEnd: ''};
         setTokensCookies(tokens);
-        setUserCookies(user)
-        return {user: user, token: ''}
+        setUserCookies(user);
+        return {user: user, token: ''};
     }
     const user = parseToken(tokens.token);
     setTokensCookies(tokens);
