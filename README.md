@@ -86,6 +86,19 @@ User experience:
 ## Userbar
 
 - Logged In:
-  - Welcome, {name}. Your Trial license is valid through {date}.
+  - Welcome, {name}. Your **Trial license is valid through {date}.**
 - Logged Out:
   - Sales pitch?
+
+## UserBase
+
+- Demo Guest User.
+- 3 Day expiration.
+
+## Database
+
+- Add database version (Nov 16)
+
+## NOTES
+
+- Ask Kardias for data usage permission for funding

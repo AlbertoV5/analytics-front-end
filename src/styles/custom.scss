@@ -3,12 +3,12 @@ $primary: #393d3f;
 $primary-hover: #303335;
 $dark-hover: #222222;
 // $secondary: #5C8B8D;
-// $secondary: #f2f2f3;
-$secondary: #778899;
-$success: #62929E;
+$secondary: #f2f2f3;
+// $secondary: #778899;
+// $success: #62929E;
 $success: #1976d2;
 // $success: #134074;
-$info: #546a7b;
+// $info: #546a7b;
 $info: #778899;
 $offcanvas-vertical-height: 380px;
 $offcanvas-transition-duration: .4s;
@@ -95,6 +95,12 @@ h2 {
     font-weight: 400;
 }
 h3 {
+    font-weight: 400;
+}
+h4 {
+    font-weight: 400;
+}
+h5 {
     font-weight: 400;
 }
 h6 {

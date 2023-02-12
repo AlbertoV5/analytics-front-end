@@ -1,0 +1,22 @@
+---
+// Layout for Narrow bootstrap columns
+import Layout from "./Layout.astro";
+
+// Astro Props
+export interface Props {
+	title: string;
+    redirectUser?: boolean;
+}
+const { title, redirectUser=false } = Astro.props;
+---
+<Layout title={title} redirectUser={redirectUser}>
+    <main class="container-fluid py-5">
+        <section id="main-section-wrapper" class='row pt-2'>
+            <aside id="main-aside-left" class='col-2'></aside>
+            <section id="main-section-center" class='col-8'>
+                <slot />
+            </section>
+            <aside id="main-aside-right" class='col-2'></aside>
+        </section>
+    </main>
+</Layout>
