@@ -15,18 +15,21 @@ export class CalculatorService {
     /**
      * Read Inputs
      * Read valid inputs for calculator.
-     * @param calculatorName
+     * @param name
+     * @param aws
      * @returns Inputs Successful Response
      * @throws ApiError
      */
     public static readInputsMlV1CalculatorInputsGet(
-        calculatorName: string,
+        name: string,
+        aws: boolean = true,
     ): CancelablePromise<Inputs> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/ml/v1/calculator/inputs',
             query: {
-                'calculator_name': calculatorName,
+                'name': name,
+                'aws': aws,
             },
             errors: {
                 422: `Validation Error`,
@@ -37,20 +40,23 @@ export class CalculatorService {
     /**
      * Read Prediction
      * Read prediction based on inputs.
-     * @param calculatorName
+     * @param name
      * @param requestBody
+     * @param aws
      * @returns Prediction Successful Response
      * @throws ApiError
      */
     public static readPredictionMlV1CalculatorPredictionPost(
-        calculatorName: string,
+        name: string,
         requestBody: PatientData,
+        aws: boolean = true,
     ): CancelablePromise<Prediction> {
         return __request(OpenAPI, {
             method: 'POST',
             url: '/ml/v1/calculator/prediction',
             query: {
-                'calculator_name': calculatorName,
+                'name': name,
+                'aws': aws,
             },
             body: requestBody,
             mediaType: 'application/json',
@@ -63,21 +69,24 @@ export class CalculatorService {
     /**
      * Read Metrics
      * Get metrics of calculator for output assessment.
-     * @param calculatorName
+     * @param name
+     * @param aws
      * @param advanced
      * @returns Metrics Successful Response
      * @throws ApiError
      */
     public static readMetricsMlV1CalculatorMetricsGet(
-        calculatorName: string,
+        name: string,
+        aws: boolean = true,
         advanced: boolean = false,
     ): CancelablePromise<Metrics> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/ml/v1/calculator/metrics',
             query: {
+                'name': name,
+                'aws': aws,
                 'advanced': advanced,
-                'calculator_name': calculatorName,
             },
             errors: {
                 422: `Validation Error`,
@@ -88,26 +97,44 @@ export class CalculatorService {
     /**
      * Test
      * Delete me
+     * @param aws
      * @returns any Successful Response
      * @throws ApiError
      */
-    public static testMlV1CalculatorTestGet(): CancelablePromise<any> {
+    public static testMlV1CalculatorTestGet(
+        aws: boolean = true,
+    ): CancelablePromise<any> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/ml/v1/calculator/test',
+            query: {
+                'aws': aws,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
         });
     }
 
     /**
      * Read List
      * Read all calculator names.
+     * @param aws
      * @returns any Successful Response
      * @throws ApiError
      */
-    public static readListMlV1CalculatorListGet(): CancelablePromise<any> {
+    public static readListMlV1CalculatorListGet(
+        aws: boolean = true,
+    ): CancelablePromise<any> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/ml/v1/calculator/list',
+            query: {
+                'aws': aws,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
         });
     }
 

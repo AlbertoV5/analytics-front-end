@@ -75,7 +75,6 @@ const CalculatorFormData = ({name = 'heart_stay'}: {name?: string}) => {
     const { getSession } = useSession();
     const { register, formState: { errors: formError }, handleSubmit, getValues, setValue } = useForm();
     const [ diagnosis, setDiagnosis ] = useState<string[]>([]);
-    const [ submitted, setSubmitted ] = useState<boolean>(false);
     // Fetch valid variables Query: onLoad.
     const { error: inputsError, data: inputs} = useQuery({
         queryKey: ['diagnosisOptions'],
@@ -86,23 +85,23 @@ const CalculatorFormData = ({name = 'heart_stay'}: {name?: string}) => {
         enabled: true
     })
     // Fetch metrics on submit.
-    const { error: metricsError, data: metrics } = useQuery({
+    const { error: metricsError, data: metrics, refetch: fetchMetrics } = useQuery({
         queryKey: ['metrics'],
         queryFn: () => getSession().then(session => {
             OpenAPI.TOKEN = session.token;
             return CalculatorService.readMetricsMlV1CalculatorMetricsGet(name);
         }),
-        enabled: submitted
+        enabled: false
     })
     // Fetch prediction data Query: onSubmit.
-    const { error: predictionError, data: prediction } = useQuery({
+    const { error: predictionError, data: prediction, refetch: fetchPrediction } = useQuery({
         queryKey: ['predictionData'],
         queryFn: () => getSession().then(session => {
             OpenAPI.TOKEN = session.token;
             const body = {...(getValues() as any), diagnosis: diagnosis};
             return CalculatorService.readPredictionMlV1CalculatorPredictionPost(name, body)
         }),
-        enabled: submitted
+        enabled: false
     })
     // ----------------------------------------
     // State Logic Functions
@@ -129,6 +128,7 @@ const CalculatorFormData = ({name = 'heart_stay'}: {name?: string}) => {
         if (!prediction || !metrics || !metrics.rank_criteria){
             return null;
         }
+        // REFRESH FORM
         const val = Math.round(prediction.pred);
         const iqr = metrics.rank_criteria.criteria.filter(m => m.rank === prediction.rank)[0].iqr;
         const top = val + Math.round(iqr/2);
@@ -146,7 +146,10 @@ const CalculatorFormData = ({name = 'heart_stay'}: {name?: string}) => {
         // Los días de estancia pueden variar en un rango de ${bot} y ${top} días.`
     }
     return (
-        <form onSubmit={handleSubmit(() => setSubmitted(true))} className="text-start">
+        <form onSubmit={handleSubmit(() => {
+            fetchMetrics();
+            fetchPrediction();
+        })} className="text-start">
             <section id="form-inputs" className='vstack gap-3'>
                 {numericFields.map((field) => (
                     <NumberField 
