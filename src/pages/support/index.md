@@ -1,6 +1,6 @@
 ---
 layout: ../../layouts/MainMid.astro
-title: Quickstart
+title: Support
 ---
 <style>
     main {

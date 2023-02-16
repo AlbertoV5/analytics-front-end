@@ -1,12 +1,10 @@
 import { useState } from 'react'
 import { useSession } from '../login/hooks/useSession';
 import { useQuery, QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { OpenAPI, PatientService } from '../../api/crud';
+import { API_URL } from '../../api/config';
+
 import TableControls from './components/TableControls';
-import { Input } from '../login/components/Input';
-import { InputField } from '../calculator/components/InputField';
-
-import { fetchPatientPage } from './api/methods';
-
 
 const headerData = [
     "ID",
@@ -20,6 +18,8 @@ const headerData = [
     "Expired"
 ]
 
+OpenAPI.BASE = API_URL;
+
 const queryClient = new QueryClient()
 
 const PatientTable = () => {
@@ -31,17 +31,16 @@ const PatientTable = () => {
 }
 
 const PatientTableData = () => {
-
     const [page, setPage] = useState(0);
     const [pageSize, setPageSize] = useState(10);
     const { getSession } = useSession();
     
     const { isLoading, error, data } = useQuery({
         queryKey: ['patientData', page],
-        queryFn: () => getSession().then(session => 
-            fetchPatientPage(session.token, page, pageSize)
-            .then(patient => patient)
-        ),
+        queryFn: () => getSession().then(session => {
+            OpenAPI.TOKEN = session.token;
+            return PatientService.readRecordsApiV1PatientGet(page*pageSize, pageSize);
+        }),
         enabled: true
     })
     return (
@@ -77,7 +76,7 @@ const PatientTableData = () => {
                                 ))}
                             </tr>
                         ))
-                        : data.map(patient => (
+                        : data.result.map(patient => (
                             <tr key={patient.patient_id}>
                                 <th scope="row" key={patient.patient_id}>{patient.patient_id}</th>
                             {Object.entries(patient).slice(1).map(([key, value]) => (

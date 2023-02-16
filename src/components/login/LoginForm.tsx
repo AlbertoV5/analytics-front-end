@@ -4,6 +4,7 @@ import { getUserDetails } from "./auth/user";
 import { FormEvent, useState } from "react";
 
 import type { AuthFlowFormProps } from "./AuthFlow";
+import LoginButton from "./components/LoginButton";
 
 /** Form and validation for User Login */
 const LoginForm = ({setForm, setPayload, redirect_url}: AuthFlowFormProps) => {
@@ -68,9 +69,7 @@ const LoginForm = ({setForm, setPayload, redirect_url}: AuthFlowFormProps) => {
         </div>
       </div>
       <div className={"d-flex justify-content-center pt-2"}>
-        <button type="submit" className="btn btn-primary mx-1 rounded-0" style={{width: "5em", fontWeight: 500}}>
-          Login
-        </button>
+        <LoginButton>Login</LoginButton>
       </div>
     </form>
   )

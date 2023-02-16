@@ -2,7 +2,9 @@ import { useState } from 'react'
 import { useSession } from '../login/hooks/useSession';
 import { useQuery, QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import TableControls from './components/TableControls';
-import { fetchDiagnosisPage } from './api/methods';
+
+import { DiagnosisService, OpenAPI } from '../../api/crud';
+import { API_URL } from '../../api/config';
 
 const headerData = [
     // "Token",
@@ -12,6 +14,7 @@ const headerData = [
     "ICD-11",
 ]
 
+OpenAPI.BASE = API_URL;
 const queryClient = new QueryClient()
 
 const DiagnosisTable = () => {
@@ -30,10 +33,10 @@ const DiagnosisTableData = () => {
     
     const { isLoading, error, data } = useQuery({
         queryKey: ['diagnosisData', page],
-        queryFn: () => getSession().then(session => 
-            fetchDiagnosisPage(session.token, page, pageSize)
-            .then(diagnosis => diagnosis)
-        ),
+        queryFn: () => getSession().then(session => {
+            OpenAPI.TOKEN = session.token;
+            return DiagnosisService.readDiagnosisApiV1DiagnosisGet(page*pageSize, pageSize)
+        }),
         enabled: true
     })
     return (

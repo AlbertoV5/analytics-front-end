@@ -2,14 +2,18 @@
 import bootstrap from "bootstrap/dist/js/bootstrap.bundle.min.js?url";
 import Footer from "../components/footer/Footer.astro";
 import NavBar from "../components/navbar/NavBar.astro";
-import UserBar from "../components/userbar/UserBar.astro";
+import icon from '../icons/favicon.svg';
+import '../styles/custom.scss';
 
 // SEO tags
 const metaTags = [
 	{name: "author", content: "Health Analytics MX"},
 	{name: "description", content: "Medical Calculators with Artificial Intelligence"}
 ]
-
+const allowed = [
+	"https://public.tableau.com/",
+	"https://www.googletagmanager.com"
+]
 // Astro Props
 export interface Props {
 	title: string;
@@ -23,38 +27,29 @@ const BASE_URL = import.meta.env.BASE_URL;
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>{title}</title>
+		<title>Health Analytics MX</title>
 		<meta charset="UTF-8" />
 		{metaTags.map(tag => (<meta name={tag.name} content={tag.content} />))}
 		<meta name="viewport" content="width=device-width" />
 		<meta name="generator" content={Astro.generator} />
-		<meta http-equiv="Content-Security-Policy" content="script-src 'self' 'unsafe-inline'">
+		<meta http-equiv="Content-Security-Policy" content={`script-src 'self' 'unsafe-inline' 'unsafe-eval' ${allowed.join(' ')}`}>
 		<meta http-equiv="Content-Security-Policy" content="object-src 'none'">
-		<style is:inline>
-			html {
-				background-color: #003135; 
-			}
-			button {
-				background-color: #003135;
-			}
-			a {
-				color: #fff;
-			}
-		</style>
+		<!-- CSS -->
+		<style is:inline>html {background-color: #393d3f;} a {color: #fff;}</style>
 		<link rel="preconnect" href="https://fonts.googleapis.com">
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-		<script>
-			(window as any).global = window;
-		</script>
-		<script src={bootstrap}></script>
-		<script src="../scripts/navbar.js"></script>
-		<link rel="icon" type="image/svg+xml" href={`${BASE_URL}favicon.svg`}/>
-		<link rel="stylesheet" type="text/css" href={`${BASE_URL}custom.css`}>
+		<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+		<link rel="icon" type="image/svg+xml" href={icon}/>
+		<!-- Scripts -->
+		<script src={bootstrap} />
+		<script src="../scripts/navbar.js" />
+		<script src="../scripts/cognitoFix.js" />
+		<!-- Google tag (gtag.js) -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-P814W51ZV8"></script>
+		<script src="../scripts/google.js" />
 	</head>
 	<body>
-		<NavBar/>
-		<UserBar redirectUser={redirectUser}/>
+		<NavBar redirect={redirectUser}/>
 		<slot/>
 		<Footer/>
 	</body>

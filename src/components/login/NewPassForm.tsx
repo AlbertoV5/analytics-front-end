@@ -2,6 +2,7 @@ import { Input, FormError} from "./components/Input";
 import type { AuthFlowFormProps } from "./AuthFlow";
 import { useSession } from "./hooks/useSession";
 import { FormEvent, useState } from "react";
+import LoginButton from "./components/LoginButton";
 
 const passwordErrors = [
   {
@@ -76,9 +77,7 @@ const NewPassForm = ({payload, redirect_url}: AuthFlowFormProps) => {
         </div>
       </div>
       <div className={"d-flex justify-content-center pt-2"}>
-        <button type="submit" className="btn btn-primary mx-1 rounded-0" style={{width: "5em", fontWeight: 500}}>
-          Submit
-        </button>
+        <LoginButton>Submit</LoginButton>
       </div>
     </form>
   )

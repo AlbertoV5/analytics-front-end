@@ -6,7 +6,8 @@ import { useState } from "react";
 import DynamicFields from "./components/DynamicList";
 import NumberField from "./components/NumberField";
 
-import { fetchValidVariables, fetchPrediction, fetchMetrics } from "./api/methods";
+import { CalculatorService, OpenAPI } from "../../api/pred";
+import { API_URL } from "../../api/config";
 
 
 const numericFields = [
@@ -44,7 +45,7 @@ const numericFields = [
     }
 ]
 
-const diagnosisFields = {
+const optionsFields = {
     diagnosis: {id: 'diagnosis', name: 'Diagnosis'}, // request to API
     diagnosis_count: {
         id: 'diagnosis_count', 
@@ -55,6 +56,8 @@ const diagnosisFields = {
         defaultValue: 0
     },
 }
+
+OpenAPI.BASE = API_URL;
 
 const queryClient = new QueryClient()
 
@@ -67,37 +70,38 @@ const CalculatorForm = () => {
 }
 
 /** Form that fetches valid options on load, validates input and makes request on submission. */
-const CalculatorFormData = () => {
+const CalculatorFormData = ({name = 'heart_stay'}: {name?: string}) => {
     // Form State and validation.
     const { getSession } = useSession();
     const { register, formState: { errors: formError }, handleSubmit, getValues, setValue } = useForm();
     const [ diagnosis, setDiagnosis ] = useState<string[]>([]);
     const [ submitted, setSubmitted ] = useState<boolean>(false);
     // Fetch valid variables Query: onLoad.
-    const { error: optionsError, data: options} = useQuery({
+    const { error: inputsError, data: inputs} = useQuery({
         queryKey: ['diagnosisOptions'],
-        queryFn: () => getSession().then(session => 
-            fetchValidVariables(session.token)
-            .then(validVariables => validVariables)
-        ),
+        queryFn: () => getSession().then(session => {
+            OpenAPI.TOKEN = session.token;
+            return CalculatorService.readInputsMlV1CalculatorInputsGet(name)
+        }),
         enabled: true
     })
-    // Fetch valid variables Query: onLoad.
+    // Fetch metrics on submit.
     const { error: metricsError, data: metrics } = useQuery({
         queryKey: ['metrics'],
-        queryFn: () => getSession().then(session =>
-            fetchMetrics(session.token)
-            .then(rankCriteria => rankCriteria)
-        ),
+        queryFn: () => getSession().then(session => {
+            OpenAPI.TOKEN = session.token;
+            return CalculatorService.readMetricsMlV1CalculatorMetricsGet(name);
+        }),
         enabled: submitted
     })
     // Fetch prediction data Query: onSubmit.
     const { error: predictionError, data: prediction } = useQuery({
         queryKey: ['predictionData'],
-        queryFn: () => getSession().then(session =>
-            fetchPrediction(session.token, {...(getValues() as any), diagnosis: diagnosis})
-            .then(prediction => prediction)
-        ),
+        queryFn: () => getSession().then(session => {
+            OpenAPI.TOKEN = session.token;
+            const body = {...(getValues() as any), diagnosis: diagnosis};
+            return CalculatorService.readPredictionMlV1CalculatorPredictionPost(name, body)
+        }),
         enabled: submitted
     })
     // ----------------------------------------
@@ -109,16 +113,16 @@ const CalculatorFormData = () => {
         setDiagnosis(diagnosis => {
             if (diagnosis.includes(option))
                 return diagnosis
-            const count = Number.parseInt(getValues(diagnosisFields.diagnosis_count.id));
-            setValue(diagnosisFields.diagnosis_count.id, count + 1);
+            const count = Number.parseInt(getValues(optionsFields.diagnosis_count.id));
+            setValue(optionsFields.diagnosis_count.id, count + 1);
             return [...diagnosis, option]
         })
     }
     /** Whenever a field is removed, remove it from diagnosis, and decrease the diagnosis count. */
     const handleRemoveDiagnosis = (index: number) => {
         setDiagnosis(diagnosis => diagnosis.filter((_, i) => i !== index))
-        const count = Number.parseInt(getValues(diagnosisFields.diagnosis_count.id));
-        setValue(diagnosisFields.diagnosis_count.id, count - 1);
+        const count = Number.parseInt(getValues(optionsFields.diagnosis_count.id));
+        setValue(optionsFields.diagnosis_count.id, count - 1);
     }
     /** Compute a string based on the numeric values of the result. */
     const describeResult = () => {
@@ -126,16 +130,18 @@ const CalculatorFormData = () => {
             return null;
         }
         const val = Math.round(prediction.pred);
-        if (prediction?.rank > 8){
-            return `More data is required for making a prediction.`
-            // return `Se requieren mayor número de datos para obtener la predicción deseada. 
-            // rank: ${prediction.rank} - pred: ${val}`
-        }
         const iqr = metrics.rank_criteria.criteria.filter(m => m.rank === prediction.rank)[0].iqr;
         const top = val + Math.round(iqr/2);
         const bot = val - Math.round(iqr/2);
+        if (prediction?.rank > 8){
+            return `The patient will have an approximate stay of ${val} days.
+            However, the number of stay days can vary from ${bot} to ${top} days.
+            More data is required for making a more accurate prediction.`
+            // return `Se requieren mayor número de datos para obtener la predicción deseada. 
+            // rank: ${prediction.rank} - pred: ${val}`
+        }
         return `The patient will have an approximate stay of ${val} days.
-        The number of stay days can vary from ${bot} to ${top} días.`
+        The number of stay days can vary from ${bot} to ${top} days.`
         // return `El paciente tendrá una estancia aproximada de ${val} días.
         // Los días de estancia pueden variar en un rango de ${bot} y ${top} días.`
     }
@@ -150,16 +156,16 @@ const CalculatorFormData = () => {
                     />
                 ))}
                 <DynamicFields 
-                    id={diagnosisFields.diagnosis.id}
-                    name={diagnosisFields.diagnosis.name}
-                    options={options ? options.diagnosis : []}
+                    id={optionsFields.diagnosis.id}
+                    name={optionsFields.diagnosis.name}
+                    options={inputs ? inputs.diagnosis : []}
                     fields={diagnosis}
                     addField={handleAddDiagnosis}
                     removeField={handleRemoveDiagnosis}
                 />
                 <NumberField
                     register={register}
-                    {...diagnosisFields.diagnosis_count}
+                    {...optionsFields.diagnosis_count}
                 />
             </section>
             <div className="row pt-3 mt-3 border-top vstack gap-2 px-2">

@@ -3,6 +3,7 @@ import { useSession } from "./hooks/useSession";
 import { Locked } from "./components/Locked"
 import type { User } from "./auth/cookies";
 import type { AuthFlowFormProps } from "./AuthFlow";
+import LoginButton from "./components/LoginButton";
 
 /** Provide a logout button and current user information. */
 const LogoutForm = ({setForm}: AuthFlowFormProps) => {
@@ -17,8 +18,9 @@ const LogoutForm = ({setForm}: AuthFlowFormProps) => {
     
     /** Remove session data and set form to login */
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-      setSession(undefined);
-      setForm('login');
+        setSession(undefined);
+        setForm('login');
+        window.location.href = window.location.pathname;
     }
     return (
       <form
@@ -40,9 +42,7 @@ const LogoutForm = ({setForm}: AuthFlowFormProps) => {
             value={(user && user.name !== 'undefined') ? user?.name : ''}
           />
         <div className={"d-flex justify-content-center pt-2"}>
-          <button type="submit" className="btn btn-primary mx-1 rounded-0" style={{width: "5em", fontWeight: 500}}>
-            Logout
-          </button>
+          <LoginButton>Logout</LoginButton>
         </div>
       </form>
     )

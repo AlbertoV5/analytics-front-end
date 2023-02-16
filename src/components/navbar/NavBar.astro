@@ -7,40 +7,65 @@ import LogoButton from './components/LogoButton.astro'
 import MobileMenuButton from './components/MobileMenuButton.astro'
 import MobileMenu from './MobileMenu.astro'
 
+import UserBar from '../userbar/UserBar'
+
 const BASE_URL = import.meta.env.BASE_URL;
 const links = [
     // {name: "Home", href: "/"},
-    {name: "Calculator", href: "calculator"},
+    {name: "Calculators", href: "calculators"},
     {name: "Metrics", href: "metrics"},
     {name: "Database", href: "database"},
     {name: "Support", href: "support"},
 ]
-const height = "40px";
 // sticky-top
+export interface Props {
+    redirect?: boolean;
+}
+const { redirect=false } = Astro.props;
 ---
 <nav
     id="navbar"
-    class="navbar sticky-top shadow-sm bg-primary"
+    class="sticky-top vstack gap-0"
+    style="height: 60px;"
 >
-    <section id="navbar-content" class="container" style={`height: ${height};`}>
-        <div id="nav-buttons" class="d-none d-lg-block">
-            <LogoButton idSuffix={'desktop'}></LogoButton>
-            {links.map(link => (
-                <NavButton name={link.name} href={`${BASE_URL}${link.href}`}/>
-            ))}
-        </div>
-        <div id="user-buttons" class="d-none d-lg-block">
-            <LoginButton gray={true}></LoginButton>
-            <ContactButton idSuffix={'desktop'}></ContactButton>
-        </div>
-        <div id="user-buttons-2" class="d-lg-none">
-            <LogoButton mobile={true} idSuffix={'mobile'}></LogoButton>
-            <ContactButton idSuffix={'mobile'}></ContactButton>
-        </div>
-        <div id="navbar-logo-menu" class="d-lg-none">
-            <MobileMenuButton></MobileMenuButton>
-        </div>
-    </section>
+    <div
+        id="menubar"
+        class="navbar container-fluid shadow-sm bg-primary"
+        style="z-index: 101;"
+    >
+        <section
+            id="navbar-content"
+            class="container"
+            style="height: 40px;"
+        >
+            <div id="nav-buttons" class="d-none d-lg-block">
+                <LogoButton idSuffix={'desktop'}></LogoButton>
+                {links.map(link => (
+                    <NavButton name={link.name} href={`${BASE_URL}${link.href}`}/>
+                ))}
+            </div>
+            <div id="user-buttons" class="d-none d-lg-block">
+                <LoginButton gray={true}></LoginButton>
+                <ContactButton idSuffix={'desktop'}></ContactButton>
+            </div>
+            <div id="user-buttons-2" class="d-lg-none">
+                <LogoButton mobile={true} idSuffix={'mobile'}></LogoButton>
+                <ContactButton idSuffix={'mobile'}></ContactButton>
+            </div>
+            <div id="navbar-logo-menu" class="d-lg-none">
+                <MobileMenuButton></MobileMenuButton>
+            </div>
+        </section>
+    </div>
+    <div
+        id="userbar"
+        class="navbar container-fluid border-0 bg-info text-light"
+        style="transform: translateY(-40px); z-index: 100;"
+    >
+        <section id="userbar-content" class="container" style={`height: 20px;`}>
+            <UserBar client:only redirectURL={`${BASE_URL}login`} redirect={redirect}></UserBar>
+        </section>
+    </div>
 </nav>
 <MobileMenu>
     <div id="nav-buttons-mobile" class="vstack gap-2 text-center">

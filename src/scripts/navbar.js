@@ -2,7 +2,7 @@
 const navbar = document.getElementById('navbar');
 const userbar = document.getElementById('userbar');
 navbar.style = "transform: translateY(0);"
-userbar.style = "transform: translateY(0); transition: transform 0.3s ease-in;"
+userbar.style = "transform: translateY(0); transition: transform 0.4s ease-in;"
 let prev = window.pageYOffset;
 window.addEventListener('scroll', () => {
     const current = window.pageYOffset;
