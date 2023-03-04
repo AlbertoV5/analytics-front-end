@@ -7,21 +7,21 @@ const GenericTable = ({header, pageSize, children}: TableProps) => {
     return (
         <>
         <section
-            id="patient-table-section" 
+            id="database-table-section" 
             className="border table-responsive px-3 pt-2"
         >
             <table
-                id="patient-table"
+                id="database-table"
                 className="table table-sm table-hover align-middle"
             >
-                <thead id="patient-table-head">
+                <thead id="database-table-head">
                     <tr>
                     {header.map(h => (
-                        <th scope="col" key={h} style={{width: "80px"}}>{h}</th>
+                        <th scope="col" key={h} >{h}</th>
                     ))}</tr>
                 </thead>
                 <tbody
-                    id="patient-table-body"
+                    id="database-table-body"
                     style={{overflowY: "hidden", fontSize: ".9em"}}
                 >
                     {
@@ -32,7 +32,7 @@ const GenericTable = ({header, pageSize, children}: TableProps) => {
                                     <td key={`${header}-${index}`} 
                                         className="card-text placeholder-glow"
                                     >
-                                        <span className="placeholder placeholder-xs w-100"></span>
+                                        <span className="placeholder placeholder-s w-100"></span>
                                     </td>
                                 ))}
                             </tr>

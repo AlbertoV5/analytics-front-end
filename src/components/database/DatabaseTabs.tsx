@@ -1,28 +1,26 @@
 import { useEffect, useState } from "react";
-import { useSession, UserSession } from "../login/hooks/useSession";
-import PatientTable from "./PatientTable";
-import DiagnosisTable from "./DiagnosisTable";
+import { useSession } from "../login/hooks/useSession";
+import PatientTable from "./tables/PatientTable";
+import DiagnosisTable from "./tables/DiagnosisTable";
+import OriginTable from "./tables/OriginTable";
 
 import type { DatabaseVersion } from "../../api";
 
-import { useQuery, QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import VersionInfo from "./components/VersionInfo";
+
+
 const queryClient = new QueryClient()
 
-
-export interface TableProps {
-    versionCallback: React.Dispatch<React.SetStateAction<DatabaseVersion | undefined>>;
-}
-
-const tabSelector = [
-    () => <div>Search</div>,
-    (props: TableProps) => <PatientTable {...props}/>,
-    (props: TableProps) => <DiagnosisTable {...props}/>,
-    () => <div></div>,
+const tabsTitles = [
+    "Patients", "Diagnosis", "Origin", "Search Patient"
 ]
-
-const tabs = [
-    "Search", "Patients", "Diagnosis", "Origin"
+// In case of needing to pass props later, do (props) => <Comp {...props}/>
+const tabSelector = [
+    () => <PatientTable/>,
+    () => <DiagnosisTable/>,
+    () => <OriginTable/>,
+    () => <div>Search</div>,
 ]
 
 export default function DatabaseTabs() {
@@ -38,29 +36,28 @@ export default function DatabaseTabs() {
     }, [])
 
     return (
-        <div>
-            <h3 className="pb-2">{username ? `Welcome, ${username}` : null}</h3>
-            {
-                versionInfo ? 
-                <VersionInfo version={versionInfo}></VersionInfo>
-                : null
-            }
+        <div className="container-fluid">
+            <div className="py-2 d-flex justify-content-between">
+                <h4>{username ? `Welcome, ${username}` : null}</h4>
+                <div>
+                    <button className="btn btn-success">View Report</button>
+                </div>
+            </div>
+            {versionInfo ? <VersionInfo version={versionInfo}></VersionInfo>: null}
             <ul className="nav nav-tabs" style={{borderBottom:"0px"}}>
-                <li className="nav-item">
-                    <a onClick={() => setTab(0)} className={`nav-link ${tab === 0 ? 'active': ''}`}href="#">{tabs[0]}</a>
-                </li>
-                <li className="nav-item">
-                    <a onClick={() => setTab(1)} className={`nav-link ${tab === 1 ? 'active': ''}`} href="#">{tabs[1]}</a>
-                </li>
-                <li className="nav-item">
-                    <a onClick={() => setTab(2)} className={`nav-link ${tab === 2 ? 'active': ''}`} href="#">{tabs[2]}</a>
-                </li>
-                <li className="nav-item">
-                    <a onClick={() => setTab(3)} className={`nav-link ${tab === 3 ? 'active': ''}`} href="#">{tabs[3]}</a>
-                </li>
+                {tabsTitles.map((item, index) => (
+                    <li key={item} className="nav-item">
+                        <button 
+                            onClick={() => setTab(index)} 
+                            className={`nav-link ${tab === index ? 'active': ''}`}
+                        >
+                            {tabsTitles[index]}
+                        </button>
+                    </li> 
+                ))}
             </ul>
             <QueryClientProvider client={queryClient}>
-                {tabSelector[tab]({versionCallback: setVersionInfo})}
+                {tabSelector[tab]()}
             </QueryClientProvider>
         </div>
     )

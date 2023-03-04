@@ -143,6 +143,25 @@ h6 {
 footer li {
     list-style-type: none;
 }
+
+#database-table-section {
+    max-height: 50vh;
+}
+
+#database-table {
+    table-layout: auto;
+    width: 100%;
+}
+
+#database-table-body {
+    table-layout: auto;
+    width: 100%;
+}
+
+// #database-table td {
+//     word-wrap: break-word;
+// }
+
 // ----------
 // ICONS
 // ----------

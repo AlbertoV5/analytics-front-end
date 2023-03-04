@@ -1,8 +1,8 @@
 
 const TableControls = ({page, setPage}: {page: number, setPage: React.Dispatch<React.SetStateAction<number>>}) => {
   return (
-    <section className='py-2'>
-      <ul className="pagination">
+    // <section className='pt-2'>
+      <ul className="pagination pt-2 align-center" style={{height: "40px"}}>
           <li className="page-item">
               <p style={{cursor:"pointer"}} className="page-link" onClick={() => setPage(prev => prev - 1)}>Prev</p>
           </li>
@@ -13,7 +13,7 @@ const TableControls = ({page, setPage}: {page: number, setPage: React.Dispatch<R
               <p style={{cursor:"pointer"}} className="page-link" onClick={() => setPage(prev => prev + 1)}>Next</p>
           </li>
       </ul>
-    </section>
+    // </section>
   )
 }
 

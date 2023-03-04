@@ -1,13 +1,13 @@
 import { useState } from 'react'
-import { useSession } from '../login/hooks/useSession';
+import { useSession } from '../../login/hooks/useSession';
 import { useQuery } from '@tanstack/react-query'
-import TableControls from './components/TableControls';
+import TableControls from '../components/TableControls';
 
-import { API_URL } from '../../config';
-import { DiagnosisService, OpenAPI } from '../../api';
-import GenericTable from './components/GenericTable';
+import { API_URL } from '../../../config';
+import { DiagnosisService, OpenAPI } from '../../../api';
+import GenericTable from '../components/GenericTable';
 
-import type { TableProps } from './DatabaseTabs';
+import VersionInfo from '../components/VersionInfo';
 
 const headerData = [
     // "Token",
@@ -19,7 +19,7 @@ const headerData = [
 
 OpenAPI.BASE = API_URL;
 
-const DiagnosisTable = ({versionCallback}: TableProps) => {
+const DiagnosisTable = () => {
 
     const [page, setPage] = useState(0);
     const [pageSize, setPageSize] = useState(8);
@@ -29,12 +29,11 @@ const DiagnosisTable = ({versionCallback}: TableProps) => {
         queryKey: ['diagnosisData', page],
         queryFn: () => getSession().then(session => {
             OpenAPI.TOKEN = session.token;
-            return DiagnosisService.readDiagnosisApiV1DiagnosisGet(page*pageSize, pageSize)
+            return DiagnosisService.readDiagnosisApiV1DiagnosisGet(page*pageSize, pageSize, false)
         }),
         enabled: true,
         keepPreviousData: true
     })
-    versionCallback(data?.version);
     return (
         <>
             <GenericTable header={headerData} pageSize={pageSize} >
@@ -50,6 +49,7 @@ const DiagnosisTable = ({versionCallback}: TableProps) => {
                 }
             </GenericTable>
             <TableControls page={page} setPage={setPage} />
+            {data?.version ? <VersionInfo version={data.version}></VersionInfo> : null}
         </>
     )
 }
