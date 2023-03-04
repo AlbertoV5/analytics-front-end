@@ -1,7 +1,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { DiagnosisData } from '../models/DiagnosisData';
+import type { DatabaseVersionWrapper_DiagnosisData_ } from '../models/DatabaseVersionWrapper_DiagnosisData_';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -15,14 +15,14 @@ export class DiagnosisService {
      * @param offset
      * @param limit
      * @param desc
-     * @returns DiagnosisData Successful Response
+     * @returns DatabaseVersionWrapper_DiagnosisData_ Successful Response
      * @throws ApiError
      */
     public static readDiagnosisApiV1DiagnosisGet(
         offset?: number,
         limit: number = 10,
         desc: boolean = false,
-    ): CancelablePromise<Array<DiagnosisData>> {
+    ): CancelablePromise<DatabaseVersionWrapper_DiagnosisData_> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/v1/diagnosis/',

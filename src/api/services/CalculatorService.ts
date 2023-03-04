@@ -13,23 +13,33 @@ import { request as __request } from '../core/request';
 export class CalculatorService {
 
     /**
+     * Read List
+     * Read all calculator names that the user has access to.
+     * @returns any Successful Response
+     * @throws ApiError
+     */
+    public static readListApiV1CalculatorListGet(): CancelablePromise<any> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/calculator_list',
+        });
+    }
+
+    /**
      * Read Inputs
      * Read valid inputs for calculator.
      * @param name
-     * @param aws
      * @returns Inputs Successful Response
      * @throws ApiError
      */
-    public static readInputsMlV1CalculatorInputsGet(
+    public static readInputsApiV1CalculatorNameInputsGet(
         name: string,
-        aws: boolean = true,
     ): CancelablePromise<Inputs> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/ml/v1/calculator/inputs',
-            query: {
+            url: '/api/v1/calculator/{name}/inputs',
+            path: {
                 'name': name,
-                'aws': aws,
             },
             errors: {
                 422: `Validation Error`,
@@ -42,21 +52,18 @@ export class CalculatorService {
      * Read prediction based on inputs.
      * @param name
      * @param requestBody
-     * @param aws
      * @returns Prediction Successful Response
      * @throws ApiError
      */
-    public static readPredictionMlV1CalculatorPredictionPost(
+    public static readPredictionApiV1CalculatorNamePredictionPost(
         name: string,
         requestBody: PatientData,
-        aws: boolean = true,
     ): CancelablePromise<Prediction> {
         return __request(OpenAPI, {
             method: 'POST',
-            url: '/ml/v1/calculator/prediction',
-            query: {
+            url: '/api/v1/calculator/{name}/prediction',
+            path: {
                 'name': name,
-                'aws': aws,
             },
             body: requestBody,
             mediaType: 'application/json',
@@ -70,67 +77,22 @@ export class CalculatorService {
      * Read Metrics
      * Get metrics of calculator for output assessment.
      * @param name
-     * @param aws
      * @param advanced
      * @returns Metrics Successful Response
      * @throws ApiError
      */
-    public static readMetricsMlV1CalculatorMetricsGet(
+    public static readMetricsApiV1CalculatorNameMetricsGet(
         name: string,
-        aws: boolean = true,
         advanced: boolean = false,
     ): CancelablePromise<Metrics> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/ml/v1/calculator/metrics',
-            query: {
+            url: '/api/v1/calculator/{name}/metrics',
+            path: {
                 'name': name,
-                'aws': aws,
+            },
+            query: {
                 'advanced': advanced,
-            },
-            errors: {
-                422: `Validation Error`,
-            },
-        });
-    }
-
-    /**
-     * Test
-     * Delete me
-     * @param aws
-     * @returns any Successful Response
-     * @throws ApiError
-     */
-    public static testMlV1CalculatorTestGet(
-        aws: boolean = true,
-    ): CancelablePromise<any> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/ml/v1/calculator/test',
-            query: {
-                'aws': aws,
-            },
-            errors: {
-                422: `Validation Error`,
-            },
-        });
-    }
-
-    /**
-     * Read List
-     * Read all calculator names.
-     * @param aws
-     * @returns any Successful Response
-     * @throws ApiError
-     */
-    public static readListMlV1CalculatorListGet(
-        aws: boolean = true,
-    ): CancelablePromise<any> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/ml/v1/calculator/list',
-            query: {
-                'aws': aws,
             },
             errors: {
                 422: `Validation Error`,

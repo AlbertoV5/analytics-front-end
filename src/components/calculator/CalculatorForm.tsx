@@ -6,8 +6,9 @@ import { useState } from "react";
 import DynamicFields from "./components/DynamicList";
 import NumberField from "./components/NumberField";
 
-import { CalculatorService, OpenAPI } from "../../api/pred";
-import { API_URL } from "../../api/config";
+// import { CalculatorService, OpenAPI } from "../../api/pred";
+import { CalculatorService, OpenAPI } from "../../api";
+import { API_URL } from "../../config";
 
 
 const numericFields = [
@@ -80,7 +81,7 @@ const CalculatorFormData = ({name = 'heart_stay'}: {name?: string}) => {
         queryKey: ['diagnosisOptions'],
         queryFn: () => getSession().then(session => {
             OpenAPI.TOKEN = session.token;
-            return CalculatorService.readInputsMlV1CalculatorInputsGet(name)
+            return CalculatorService.readInputsApiV1CalculatorNameInputsGet(name)
         }),
         enabled: true
     })
@@ -89,7 +90,7 @@ const CalculatorFormData = ({name = 'heart_stay'}: {name?: string}) => {
         queryKey: ['metrics'],
         queryFn: () => getSession().then(session => {
             OpenAPI.TOKEN = session.token;
-            return CalculatorService.readMetricsMlV1CalculatorMetricsGet(name);
+            return CalculatorService.readMetricsApiV1CalculatorNameMetricsGet(name);
         }),
         enabled: false
     })
@@ -99,7 +100,7 @@ const CalculatorFormData = ({name = 'heart_stay'}: {name?: string}) => {
         queryFn: () => getSession().then(session => {
             OpenAPI.TOKEN = session.token;
             const body = {...(getValues() as any), diagnosis: diagnosis};
-            return CalculatorService.readPredictionMlV1CalculatorPredictionPost(name, body)
+            return CalculatorService.readPredictionApiV1CalculatorNamePredictionPost(name, body)
         }),
         enabled: false
     })

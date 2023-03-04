@@ -9,8 +9,7 @@
     "styles": "sass src/styles/custom.scss public/custom.css",
     "build": "astro build",
     "build2": "sass src/styles/custom.scss public/custom.css && astro build",
-    "openapi-crud": "openapi --input ./src/api/openapiCrud.json --output ./src/api/crud",
-    "openapi-pred": "openapi --input ./src/api/openapiPred.json --output ./src/api/pred",
+    "openapi": "openapi --input openapi.json --output ./src/api",
     "preview": "astro preview",
     "astro": "astro"
   },

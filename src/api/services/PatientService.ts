@@ -1,8 +1,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
-import type { Patient } from '../models/Patient';
-import type { PatientList } from '../models/PatientList';
+import type { DatabaseVersionWrapper_Patient_ } from '../models/DatabaseVersionWrapper_Patient_';
+import type { DatabaseVersionWrapper_PatientComplete_ } from '../models/DatabaseVersionWrapper_PatientComplete_';
 
 import type { CancelablePromise } from '../core/CancelablePromise';
 import { OpenAPI } from '../core/OpenAPI';
@@ -14,17 +14,22 @@ export class PatientService {
      * Read Records
      * Read records
      * @param patientId
-     * @returns Patient Successful Response
+     * @param complete
+     * @returns DatabaseVersionWrapper_PatientComplete_ Successful Response
      * @throws ApiError
      */
     public static readRecordsApiV1PatientPatientIdGet(
         patientId: number,
-    ): CancelablePromise<Patient> {
+        complete: boolean = false,
+    ): CancelablePromise<DatabaseVersionWrapper_PatientComplete_> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/v1/patient/{patient_id}',
             path: {
                 'patient_id': patientId,
+            },
+            query: {
+                'complete': complete,
             },
             errors: {
                 422: `Validation Error`,
@@ -38,14 +43,14 @@ export class PatientService {
      * @param offset
      * @param limit
      * @param desc
-     * @returns PatientList Successful Response
+     * @returns DatabaseVersionWrapper_Patient_ Successful Response
      * @throws ApiError
      */
     public static readRecordsApiV1PatientGet(
         offset?: number,
         limit: number = 10,
         desc: boolean = true,
-    ): CancelablePromise<PatientList> {
+    ): CancelablePromise<DatabaseVersionWrapper_Patient_> {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/v1/patient/',

@@ -1,10 +1,12 @@
 import { useState } from 'react'
 import { useSession } from '../login/hooks/useSession';
-import { useQuery, QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { OpenAPI, PatientService } from '../../api/crud';
-import { API_URL } from '../../api/config';
+import { useQuery } from '@tanstack/react-query'
+import { PatientService, OpenAPI } from '../../api';
+import { API_URL } from '../../config';
 
 import TableControls from './components/TableControls';
+import type { TableProps } from './DatabaseTabs';
+
 
 const headerData = [
     "ID",
@@ -20,17 +22,7 @@ const headerData = [
 
 OpenAPI.BASE = API_URL;
 
-const queryClient = new QueryClient()
-
-const PatientTable = () => {
-    return (
-        <QueryClientProvider client={queryClient}>
-            <PatientTableData></PatientTableData>
-        </QueryClientProvider>
-    )
-}
-
-const PatientTableData = () => {
+const PatientTable = ({versionCallback}: TableProps) => {
     const [page, setPage] = useState(0);
     const [pageSize, setPageSize] = useState(10);
     const { getSession } = useSession();
@@ -41,8 +33,10 @@ const PatientTableData = () => {
             OpenAPI.TOKEN = session.token;
             return PatientService.readRecordsApiV1PatientGet(page*pageSize, pageSize);
         }),
-        enabled: true
+        enabled: true,
+        keepPreviousData: true
     })
+    versionCallback(data?.version);
     return (
         <>
         <section
