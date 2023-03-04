@@ -1,0 +1,44 @@
+---
+// Layout for Narrow bootstrap columns
+import Layout from "./Layout.astro";
+
+// Astro Props
+export interface Props {
+	title: string;
+    firstColor: string;
+    secondColor: string;
+    thirdColor: string;
+}
+const { title, firstColor, secondColor, thirdColor } = Astro.props;
+---
+<Layout title={title} redirectUser={false}>
+    <main>
+        <div class={`py-5 mb-5 container-fluid ${firstColor}`}>
+            <section id="main-section-wrapper" class='row pt-2'>
+                <aside id="main-aside-left" class='col-1 col-md-3'></aside>
+                <section id="main-section-center" class='col-10 col-md-6'>
+                    <slot name="first"/>
+                </section>
+                <aside id="main-aside-right" class='col-1 col-md-3'></aside>
+            </section>
+        </div>
+        <div class={`py-5 container-fluid ${secondColor}`}>
+            <section id="main-section-wrapper" class='row pt-2'>
+                <aside id="main-aside-left" class='col-1'></aside>
+                <section id="main-section-center" class='col-10'>
+                    <slot name="second"/>
+                </section>
+                <aside id="main-aside-right" class='col-1'></aside>
+            </section>
+        </div>
+        <div class={`py-5 container-fluid ${thirdColor}`}>
+            <section id="main-section-wrapper" class='row pt-2'>
+                <aside id="main-aside-left" class='col-1'></aside>
+                <section id="main-section-center" class='col-10'>
+                    <slot name="third"/>
+                </section>
+                <aside id="main-aside-right" class='col-1'></aside>
+            </section>
+        </div>
+    </main>
+</Layout>

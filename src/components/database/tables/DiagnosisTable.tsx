@@ -24,6 +24,7 @@ const DiagnosisTable = () => {
     const [page, setPage] = useState(0);
     const [pageSize, setPageSize] = useState(8);
     const { getSession } = useSession();
+    const [searchData, setSearchData] = useState('');
     
     const { isLoading, error, data } = useQuery({
         queryKey: ['diagnosisData', page],
@@ -36,20 +37,20 @@ const DiagnosisTable = () => {
     })
     return (
         <>
-            {data?.version ? <VersionInfo version={data.version}></VersionInfo> : null}
-            <GenericTable header={headerData} pageSize={pageSize} >
-                {
-                    data ?
-                    data.result.map(diagnosis => (
-                        <tr key={diagnosis.token}>
-                            {/* <th scope="row" key={diagnosis.token}>{diagnosis.token}</th> */}
-                        {Object.entries(diagnosis).slice(1).map(([key, value]) => (
-                            <td key={key} className="px-2">{value}</td>
-                        ))}</tr>
-                    )) : null
-                }
-            </GenericTable>
-            <TableControls page={page} setPage={setPage} />
+        {data?.version ? <VersionInfo version={data.version}></VersionInfo> : null}
+        <GenericTable header={headerData} pageSize={pageSize} >
+            {
+                data ?
+                data.result.map(diagnosis => (
+                    <tr key={diagnosis.token}>
+                        {/* <th scope="row" key={diagnosis.token}>{diagnosis.token}</th> */}
+                    {Object.entries(diagnosis).slice(1).map(([key, value]) => (
+                        <td key={key} className="px-2">{value}</td>
+                    ))}</tr>
+                )) : null
+            }
+        </GenericTable>
+        <TableControls page={page} setPage={setPage} />
         </>
     )
 }

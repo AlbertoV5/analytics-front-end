@@ -1,21 +1,21 @@
 ---
+const BASE_URL = import.meta.env.BASE_URL;
 const links = [
     {name: "Home", href: ""},
-    {name: "Calculators", href: "calculators"},
-    {name: "Metrics", href: "metrics"},
-    {name: "Database", href: "database"},
-    {name: "Support", href: "support"},
-    {name: "Legal Notice", href: "legal"},
-    {name: "Contact Us", href: 'https://health-analytics-mx.odoo.com/about-us', blank: true},
+    {name: "Calculators", href: `${BASE_URL}calculators`},
+    {name: "Metrics", href: `${BASE_URL}metrics`},
+    {name: "Database", href: `${BASE_URL}database`},
+    {name: "Support", href: `${BASE_URL}support`},
+    {name: "Legal Notice", href: `${BASE_URL}legal`},
+    {name: "Contact Us", href: 'https://healthanalyticsmx.com/', blank: true},
 ]
-const BASE_URL = import.meta.env.BASE_URL;
 ---
 <section class="row">
     <ul class="col-12 col-md-2 py-2">{links.map(link => (
         <li id={`${link.name.toLowerCase()}-footer`}>
             <a class="footer-link" 
                 id={`${link.name.toLowerCase()}-footer-link`} 
-                href={`${BASE_URL}${link.href}`} 
+                href={`${link.href}`} 
                 target={link.blank ? 'blank' : '_self'}
             >
                 {link.name}
