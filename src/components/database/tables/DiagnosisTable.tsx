@@ -36,6 +36,7 @@ const DiagnosisTable = () => {
     })
     return (
         <>
+            {data?.version ? <VersionInfo version={data.version}></VersionInfo> : null}
             <GenericTable header={headerData} pageSize={pageSize} >
                 {
                     data ?
@@ -49,7 +50,6 @@ const DiagnosisTable = () => {
                 }
             </GenericTable>
             <TableControls page={page} setPage={setPage} />
-            {data?.version ? <VersionInfo version={data.version}></VersionInfo> : null}
         </>
     )
 }

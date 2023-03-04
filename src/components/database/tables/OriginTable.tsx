@@ -25,7 +25,7 @@ const OriginTable = () => {
     const { getSession } = useSession();
     
     const { isLoading, error, data } = useQuery({
-        queryKey: ['patientData', page],
+        queryKey: ['originData', page],
         queryFn: () => getSession().then(session => {
             OpenAPI.TOKEN = session.token;
             return OriginService.readOriginApiV1OriginGet(page*pageSize, pageSize);

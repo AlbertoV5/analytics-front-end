@@ -8,19 +8,20 @@ import type { DatabaseVersion } from "../../api";
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import VersionInfo from "./components/VersionInfo";
+import SearchTable from "./tables/SearchTable";
 
 
 const queryClient = new QueryClient()
 
 const tabsTitles = [
-    "Patients", "Diagnosis", "Origin", "Search Patient"
+    "Patient", "Diagnosis", "Origin", "Patient Details"
 ]
 // In case of needing to pass props later, do (props) => <Comp {...props}/>
 const tabSelector = [
     () => <PatientTable/>,
     () => <DiagnosisTable/>,
     () => <OriginTable/>,
-    () => <div>Search</div>,
+    () => <SearchTable/>,
 ]
 
 export default function DatabaseTabs() {
@@ -44,9 +45,9 @@ export default function DatabaseTabs() {
                 </div>
             </div>
             {versionInfo ? <VersionInfo version={versionInfo}></VersionInfo>: null}
-            <ul className="nav nav-tabs" style={{borderBottom:"0px"}}>
+            <ul className="nav nav-tabs border-bottom mb-2">
                 {tabsTitles.map((item, index) => (
-                    <li key={item} className="nav-item">
+                    <li id={`${item}`} key={item} className="nav-item">
                         <button 
                             onClick={() => setTab(index)} 
                             className={`nav-link ${tab === index ? 'active': ''}`}
