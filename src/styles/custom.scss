@@ -11,7 +11,7 @@ $info: #778899;
 $success-hover: #1863ae;
 $primary-hover: #303335;
 $dark-hover: #222222;
-$offcanvas-vertical-height: 380px;
+$offcanvas-vertical-height: 400px;
 $offcanvas-transition-duration: .4s;
 $placeholder-opacity-max: .2;
 $placeholder-opacity-min: .1;
@@ -127,33 +127,38 @@ h6 {
 // ----------
 .footer-container {
     // padding: 2.5em 5em 3em 5em;
-    padding: 60px 11vw 16px 11vw;
+    padding: 60px 11vw 60px 11vw;
 }
 .sub-footer-container {
     // padding: 2.5em 5em 3em 5em;
     padding: 1em 0em 0em 6vw;
-    background-color: #cccccc; 
+    background-color: #cccccc;
     height: 3.6em;
 }
 @include media-breakpoint-up(md) {
     .footer-container {
         // padding: 2.5em 5em 3em 6em;
-        padding: 60px 6vw 16px 6vw;
+        padding: 60px 6vw 60px 6vw;
     }
+}
+.footer p {
+    color: #e5e5e5;
 }
 .footer-link {
     text-decoration: none;
     line-height: 1.6em;
-    color: #333333;
+    color: #e5e5e5;
 }
 .footer-link:hover {
     text-decoration: underline;
-    color: #000000;
+    color: #fff;
 }
 .footer-header {
-    color: #333333;
+    font-family: 'Montserrat', 'Courier New', Courier, monospace;
+    color: #e5e5e5;
     font-weight: 400;
     font-size: 1.15em;
+    margin-bottom: 1.4em;
 }
 footer li {
     list-style-type: none;

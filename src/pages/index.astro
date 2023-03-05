@@ -5,17 +5,14 @@ import ContactButton from '../components/navbar/components/ContactButton.astro';
 
 import LogoLarge from "../images/logo-large-black.png"
 
-const links = [
-    {name: "Calculators", href: "calculators"},
-    {name: "Metrics", href: "metrics"},
-    {name: "Database", href: "database"},
-    {name: "Support", href: "support"},
-]
-
-
+const BASE_URL = import.meta.env.BASE_URL;
+const calculators_link = `${BASE_URL}calculators`;
+const metrics_link = `${BASE_URL}metrics`;
+const database_link = `${BASE_URL}database`;
+const support_link = `${BASE_URL}support`;
 ---
 
-<MainLanding title="Health Analytics" firstColor="" secondColor="bg-secondary" thirdColor="bg-primary">
+<MainLanding title="Health Analytics" firstColor="" secondColor="bg-secondary" thirdColor="">
 	<section slot="first" id="header-section" class="row d-flex justify-content-center">
 		<header class="row text-center vstack gap-3">
 			<div class="d-flex justify-content-center">
@@ -32,7 +29,7 @@ const links = [
 				</div>
 			</div>
 		</header>
-		<section class="row text-center pt-4">
+		<section class="row text-center pt-3">
 			<div class="d-flex justify-content-center lh-lg">
 				<LoginButton idSuffix={'-homepage'} style={"width: 120px; font-weight: 500;"}></LoginButton>
 				<ContactButton idSuffix={'-homepage'} style={"width: 120px; font-weight: 500;"}></ContactButton>
@@ -53,7 +50,7 @@ const links = [
 						Grow your business based on data-driven decisions by visualizing social, consumer, or popular trends.
 					</p></div>
 					<div class="text-start">
-						<button class="btn btn-primary lh-lg" style="font-weight: 500;">View Reports</button>
+						<a href={metrics_link} class="btn btn-primary lh-lg" style="font-weight: 500;">View Reports</a>
 					</div>
 				</div>
 			</div>
@@ -70,7 +67,7 @@ const links = [
 						Our expert Artificial Intelligence Systems will help you improve your administrative and medical assessments throughout your practice.
 					</p></div>
 					<div class="text-start">
-						<button class="btn btn-success lh-lg" style="font-weight: 500;">Get Started</button>
+						<a href={calculators_link} class="btn btn-success lh-lg" style="font-weight: 500;">Get Started</a>
 					</div>
 				</div>
 			</div>
@@ -79,14 +76,14 @@ const links = [
 					<header class="text-start">
 						<h4 class="landing-page-subtitle">
 							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="#444" d="M12 11q-3.75 0-6.375-1.175T3 7q0-1.65 2.625-2.825T12 3q3.75 0 6.375 1.175T21 7q0 1.65-2.625 2.825T12 11Zm0 5q-3.75 0-6.375-1.175T3 12V9.5q0 1.1 1.025 1.863t2.45 1.237q1.425.475 2.963.688T12 13.5q1.025 0 2.563-.213t2.962-.687q1.425-.475 2.45-1.237T21 9.5V12q0 1.65-2.625 2.825T12 16Zm0 5q-3.75 0-6.375-1.175T3 17v-2.5q0 1.1 1.025 1.863t2.45 1.237q1.425.475 2.963.688T12 18.5q1.025 0 2.563-.213t2.962-.687q1.425-.475 2.45-1.238T21 14.5V17q0 1.65-2.625 2.825T12 21Z"/></svg>
-							PATIENT DATABASE
+							PATIENT DATABASES
 						</h4>
 					</header>
 					<div class="text-start"><p>
 						Stored in highly secure private cloud servers, our databases integrate ICD-11 Codes and follow HIPAA Privacy specifications.
 					</p></div>
 					<div class="text-start">
-						<button class="btn btn-primary lh-lg" style="font-weight: 500;">Learn More</button>
+						<a href={database_link} class="btn btn-primary lh-lg" style="font-weight: 500;">Learn More</a>
 					</div>
 				</div>
 			</div>
