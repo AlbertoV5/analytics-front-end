@@ -1,6 +1,7 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { Fields } from '../models/Fields';
 import type { Inputs } from '../models/Inputs';
 import type { Metrics } from '../models/Metrics';
 import type { PatientData } from '../models/PatientData';
@@ -38,6 +39,28 @@ export class CalculatorService {
         return __request(OpenAPI, {
             method: 'GET',
             url: '/api/v1/calculator/{name}/inputs',
+            path: {
+                'name': name,
+            },
+            errors: {
+                422: `Validation Error`,
+            },
+        });
+    }
+
+    /**
+     * Read Fields
+     * Read valid fields for calculator.
+     * @param name
+     * @returns Fields Successful Response
+     * @throws ApiError
+     */
+    public static readFieldsApiV1CalculatorNameFieldsGet(
+        name: string,
+    ): CancelablePromise<Fields> {
+        return __request(OpenAPI, {
+            method: 'GET',
+            url: '/api/v1/calculator/{name}/fields',
             path: {
                 'name': name,
             },

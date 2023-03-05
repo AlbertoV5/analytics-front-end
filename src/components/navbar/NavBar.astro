@@ -49,11 +49,11 @@ const { redirect=false } = Astro.props;
                 <ContactButton idSuffix={'desktop'}></ContactButton>
             </div>
             <div id="user-buttons-2" class="d-lg-none">
+                <MobileMenuButton></MobileMenuButton>
                 <LogoButton mobile={true} idSuffix={'mobile'}></LogoButton>
-                <ContactButton idSuffix={'mobile'}></ContactButton>
             </div>
             <div id="navbar-logo-menu" class="d-lg-none">
-                <MobileMenuButton></MobileMenuButton>
+                <ContactButton idSuffix={'mobile'}></ContactButton>
             </div>
         </section>
     </div>

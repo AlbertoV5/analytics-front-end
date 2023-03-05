@@ -29,12 +29,14 @@ const headerData2 = [
 ]
 
 const headerData3 = [
-    // "Token",
     "ID",
+    // "Token",
+    "State",
     "Origin",
-    // "Latitude",
     // "Longitude",
+    // "Latitude",
     "Altitude",
+    // "State",
 ]
 
 OpenAPI.BASE = API_URL;
@@ -80,7 +82,7 @@ const SearchTable = () => {
                     data ? data.result.map(item => (
                         <tr key={item.origin?.token}>
                             <th scope="row" key={item.patient.patient_id}>{item.patient.patient_id}</th>
-                        {Object.entries(item.origin?item.origin:{}).slice(1).filter(([key, value]) => key != "lat" && key != "lng").map(([key, value]) => (
+                        {Object.entries(item.origin?item.origin:{}).slice(2).filter(([key, value]) => key != "lat" && key != "lng").map(([key, value]) => (
                             <td key={key} className="px-2">{value}</td>
                         ))}</tr>
                     )) : null

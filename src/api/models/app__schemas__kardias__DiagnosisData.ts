@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type DiagnosisData = {
+export type app__schemas__kardias__DiagnosisData = {
     token: string;
     diagnosis: string;
     diagnosis_en: string;

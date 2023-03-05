@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type Patient = {
+export type app__schemas__schemas__Patient = {
     patient_id: number;
     gender: number;
     age_days: number;

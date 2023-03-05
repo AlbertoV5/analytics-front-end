@@ -1,5 +1,5 @@
 ---
-import { Icon } from 'astro-icon';
+import Logo from "../../../images/logo-small.png";
 
 interface Props {
     idSuffix?: string;
@@ -23,7 +23,7 @@ class="nav-button"
     {
         mobile ?
         // <Icon name="hamx-logo" alt="Health Analytics MX Logo"></Icon>
-        'HAMX'
+        <img src={Logo} style="width: 40px;" />
         : <span class="logo-text">HEALTH ANALYTICS MX</span>
     }
 </a>

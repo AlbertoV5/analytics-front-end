@@ -6,57 +6,9 @@ import { useState } from "react";
 import DynamicFields from "./components/DynamicList";
 import NumberField from "./components/NumberField";
 
-// import { CalculatorService, OpenAPI } from "../../api/pred";
 import { CalculatorService, OpenAPI } from "../../api";
 import { API_URL } from "../../config";
 
-
-const numericFields = [
-    {
-        id: 'age_days',
-        name: 'Age (days)',
-        step: 1,
-        min: 0,
-        max: 40000,
-        defaultValue: 800,
-    },
-    {
-        id: 'weight_kg',
-        name: 'Weight (kg)',
-        step: 0.1,
-        min: 0,
-        max: 300,
-        defaultValue: 8,
-    },
-    {
-        id: 'height_cm',
-        name: 'Height (cm)',
-        step: 0.1,
-        min: 0,
-        max: 300,
-        defaultValue: 80,
-    },
-    {
-        id: 'cx_prev',
-        name: 'Cx Prev',
-        step: 1,
-        min: 0,
-        max: 20,
-        defaultValue: 0,
-    }
-]
-
-const optionsFields = {
-    diagnosis: {id: 'diagnosis', name: 'Diagnosis'}, // request to API
-    diagnosis_count: {
-        id: 'diagnosis_count', 
-        name: 'Diagnosis Count',
-        step: 1,
-        min: 1,
-        max: 20,
-        defaultValue: 0
-    },
-}
 
 OpenAPI.BASE = API_URL;
 
@@ -76,12 +28,12 @@ const CalculatorFormData = ({name = 'heart_stay'}: {name?: string}) => {
     const { getSession } = useSession();
     const { register, formState: { errors: formError }, handleSubmit, getValues, setValue } = useForm();
     const [ diagnosis, setDiagnosis ] = useState<string[]>([]);
-    // Fetch valid variables Query: onLoad.
-    const { error: inputsError, data: inputs} = useQuery({
-        queryKey: ['diagnosisOptions'],
+    // Fetch Fields on load
+    const { error: fieldsError, data: fields } = useQuery({
+        queryKey: ['fields'],
         queryFn: () => getSession().then(session => {
             OpenAPI.TOKEN = session.token;
-            return CalculatorService.readInputsApiV1CalculatorNameInputsGet(name)
+            return CalculatorService.readFieldsApiV1CalculatorNameFieldsGet(name)
         }),
         enabled: true
     })
@@ -113,16 +65,16 @@ const CalculatorFormData = ({name = 'heart_stay'}: {name?: string}) => {
         setDiagnosis(diagnosis => {
             if (diagnosis.includes(option))
                 return diagnosis
-            const count = Number.parseInt(getValues(optionsFields.diagnosis_count.id));
-            setValue(optionsFields.diagnosis_count.id, count + 1);
+            const count = Number.parseInt(getValues(fields ? fields.options[0].counter.id : '0'));
+            setValue(fields ? fields.options[0].counter.id : '', count + 1);
             return [...diagnosis, option]
         })
     }
     /** Whenever a field is removed, remove it from diagnosis, and decrease the diagnosis count. */
     const handleRemoveDiagnosis = (index: number) => {
         setDiagnosis(diagnosis => diagnosis.filter((_, i) => i !== index))
-        const count = Number.parseInt(getValues(optionsFields.diagnosis_count.id));
-        setValue(optionsFields.diagnosis_count.id, count - 1);
+        const count = Number.parseInt(getValues(fields ? fields.options[0].counter.id : '0'));
+        setValue(fields ? fields.options[0].counter.id : '', count - 1);
     }
     /** Compute a string based on the numeric values of the result. */
     const describeResult = () => {
@@ -147,50 +99,73 @@ const CalculatorFormData = ({name = 'heart_stay'}: {name?: string}) => {
         // Los días de estancia pueden variar en un rango de ${bot} y ${top} días.`
     }
     return (
-        <form onSubmit={handleSubmit(() => {
-            fetchMetrics();
-            fetchPrediction();
-        })} className="text-start">
-            <section id="form-inputs" className='vstack gap-3'>
-                {numericFields.map((field) => (
-                    <NumberField 
-                        key={field.id}
-                        register={register}
-                        {...field}
+    <>
+    <div className='col-1 col-md-3 col-lg-4'></div>
+        <section className='col-10 col-md-6 col-lg-4 border-top py-4'>
+        {fields ? 
+        <div className="row vstack gap-3">
+            <div className="hstack gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2m-3.1 3.9s-.7-.3-1-.3c-.6-.1-1 .1-1.2 1.1L12 16.8c-.2.8-.5 1.4-1 1.8c-.4.3-.8.4-1.3.4c-.8 0-2-.5-2-.5l.5-1.4s.8.3 1 .3c.3.1.5 0 .7-.1c.2-.1.3-.4.4-.7l1.6-9.2c.1-.8.5-1.4 1-1.9c.6-.4 1.3-.5 2.1-.4c.7.1 1.5.5 1.5.5l-.6 1.3Z"/></svg>
+                <h3 className="text-uppercase">{fields.title}</h3>
+            </div>
+            <h6 className="text-uppercase lh">{fields.subtitle}</h6>
+            <form onSubmit={handleSubmit(() => {
+                fetchMetrics();
+                fetchPrediction();
+            })} className="text-start">
+                <section id="form-inputs" className='vstack gap-3'>
+                    { 
+                        fields.numeric.map((field) => (
+                            <NumberField 
+                                key={field.id}
+                                register={register}
+                                {...field}
+                            />
+                        ))
+                    }
+                    <DynamicFields
+                        id={fields.options[0]?.id}
+                        name={fields.options[0].name}
+                        options={fields.options[0].options}
+                        fields={diagnosis}
+                        addField={handleAddDiagnosis}
+                        removeField={handleRemoveDiagnosis}
                     />
-                ))}
-                <DynamicFields 
-                    id={optionsFields.diagnosis.id}
-                    name={optionsFields.diagnosis.name}
-                    options={inputs ? inputs.diagnosis : []}
-                    fields={diagnosis}
-                    addField={handleAddDiagnosis}
-                    removeField={handleRemoveDiagnosis}
-                />
-                <NumberField
-                    register={register}
-                    {...optionsFields.diagnosis_count}
-                />
-            </section>
-            <div className="row pt-3 mt-3 border-top vstack gap-2 px-2">
-                <div id="feedback-invalid" className="form-text text-danger mb-2">
-                    {/* {`${formError}`} */}
-                </div>
-                <button type="submit" className="btn btn-success">
-                    Calculate
-                </button>
-                <div className="card bg-info text-light px-0">
-                    <div className="card-body vstack">
-                        <h5>
-                            Results
-                        </h5>
-                        <p className={"w-100 m-0 p-0"}>
-                            {describeResult()}
-                        </p>
+                    <NumberField
+                        register={register}
+                        {...fields.options[0].counter}
+                    />
+                </section>
+                <div className="row pt-1 mt-3 border-top vstack gap-2 px-2">
+                    <div id="feedback-invalid" className="form-text text-danger mb-2">
+                        {/* {`${formError}`} */}
+                    </div>
+                    <button type="submit" className="btn btn-success">
+                        Calculate
+                    </button>
+                    <div className="card bg-info text-light px-0">
+                        <div className="card-body vstack">
+                            <h5>
+                                Results
+                            </h5>
+                            <p className={"w-100 m-0 p-0"}>
+                                {describeResult()}
+                            </p>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </form>
+                <div className="d-flex justify-content-between">
+                    <p className="form-text">{`Calculator: ${fields.id}`}</p>
+                    <p className="form-text">{`Version: ${fields.version}`}</p>
+                </div>
+            </form>
+        </div>
+        : null}
+        </section>
+    <div className='col-1 col-md-3 col-lg-4'>
+        {/* <div className="bg-info mx-5 rounded" style={{height: "200px", width: "200px"}}></div> */}
+    </div>
+    </>
     )
 }
 
