@@ -12,7 +12,7 @@ title: Legal Notice
     }
 </style>
 
-## Legal Notice
+## LEGAL NOTICE
 
 The Artificial Intelligence calculators provided on this website are intended for informational purposes only and are not intended to replace the advice of a medical professional but rather support clinical decision making at an administrative level.
 
@@ -24,4 +24,4 @@ The information on this website is provided on an "as is" basis and the company 
 
 In no event will the company providing the calculators be liable for any loss or damage including without limitation, indirect or consequential loss or damage, or any loss or damage whatsoever arising from loss of data or profits arising out of, or in connection with, the use of this website.
 
-By using this website, you agree to the terms of this Legal Notice. If you do not agree with these terms, you should not use this website.
+By using this website, you agree to the terms of this Legal Notice.

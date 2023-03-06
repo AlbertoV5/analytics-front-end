@@ -13,7 +13,7 @@ title: Metrics
     }
 </style>
 
-## Metrics
+## METRICS
 
 #### Patient Per State
 

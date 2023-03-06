@@ -1,195 +1,118 @@
-import { useQuery, QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { useSession } from "../login/hooks/useSession";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
 
-import DynamicFields from "./components/DynamicList";
+import DynamicFields from "./components/DynamicFields";
 import NumberField from "./components/NumberField";
 
-import { CalculatorService, OpenAPI } from "../../api/pred";
-import { API_URL } from "../../api/config";
+import { CalculatorService, OpenAPI } from "../../api";
 
+import { outputDescriptions, calculatorNames } from "./components/calculator/Descriptions";
+import { CalculatorOutputs, CalculatorHeader } from "./components/calculator/CalculatorParts";
 
-const numericFields = [
-    {
-        id: 'age_days',
-        name: 'Age (days)',
-        step: 1,
-        min: 0,
-        max: 40000,
-        defaultValue: 800,
-    },
-    {
-        id: 'weight_kg',
-        name: 'Weight (kg)',
-        step: 0.1,
-        min: 0,
-        max: 300,
-        defaultValue: 8,
-    },
-    {
-        id: 'height_cm',
-        name: 'Height (cm)',
-        step: 0.1,
-        min: 0,
-        max: 300,
-        defaultValue: 80,
-    },
-    {
-        id: 'cx_prev',
-        name: 'Cx Prev',
-        step: 1,
-        min: 0,
-        max: 20,
-        defaultValue: 0,
-    }
-]
-
-const optionsFields = {
-    diagnosis: {id: 'diagnosis', name: 'Diagnosis'}, // request to API
-    diagnosis_count: {
-        id: 'diagnosis_count', 
-        name: 'Diagnosis Count',
-        step: 1,
-        min: 1,
-        max: 20,
-        defaultValue: 0
-    },
-}
-
-OpenAPI.BASE = API_URL;
-
-const queryClient = new QueryClient()
-
-const CalculatorForm = () => {
-    return (
-        <QueryClientProvider client={queryClient}>
-            <CalculatorFormData></CalculatorFormData>
-        </QueryClientProvider>
-    )
-}
 
 /** Form that fetches valid options on load, validates input and makes request on submission. */
-const CalculatorFormData = ({name = 'heart_stay'}: {name?: string}) => {
+const CalculatorForm = ({name}: {name: calculatorNames}) => {
     // Form State and validation.
     const { getSession } = useSession();
     const { register, formState: { errors: formError }, handleSubmit, getValues, setValue } = useForm();
-    const [ diagnosis, setDiagnosis ] = useState<string[]>([]);
-    // Fetch valid variables Query: onLoad.
-    const { error: inputsError, data: inputs} = useQuery({
-        queryKey: ['diagnosisOptions'],
+    const [ options, setOptions ] = useState<string[]>([]);
+    const [ predict, setPredict ] = useState(false);
+    // Fetch Fields on load
+    const { error: fieldsError, data: fields } = useQuery({
+        queryKey: ['fields'],
         queryFn: () => getSession().then(session => {
             OpenAPI.TOKEN = session.token;
-            return CalculatorService.readInputsMlV1CalculatorInputsGet(name)
+            return CalculatorService.readFieldsApiV1CalculatorNameFieldsGet(name)
         }),
         enabled: true
     })
     // Fetch metrics on submit.
-    const { error: metricsError, data: metrics, refetch: fetchMetrics } = useQuery({
+    const { error: metricsError, data: metrics } = useQuery({
         queryKey: ['metrics'],
         queryFn: () => getSession().then(session => {
             OpenAPI.TOKEN = session.token;
-            return CalculatorService.readMetricsMlV1CalculatorMetricsGet(name);
+            return CalculatorService.readMetricsApiV1CalculatorNameMetricsGet(name);
         }),
-        enabled: false
+        enabled: predict
     })
     // Fetch prediction data Query: onSubmit.
-    const { error: predictionError, data: prediction, refetch: fetchPrediction } = useQuery({
+    const { error: predictionError, data: prediction, isSuccess } = useQuery({
         queryKey: ['predictionData'],
         queryFn: () => getSession().then(session => {
             OpenAPI.TOKEN = session.token;
-            const body = {...(getValues() as any), diagnosis: diagnosis};
-            return CalculatorService.readPredictionMlV1CalculatorPredictionPost(name, body)
+            const body = {...(getValues() as any), diagnosis: options};
+            return CalculatorService.readPredictionApiV1CalculatorNamePredictionPost(name, body)
         }),
-        enabled: false
+        onSuccess: () => setPredict(false),
+        enabled: predict
     })
     // ----------------------------------------
     // State Logic Functions
     // ----------------------------------------
     /** Whenever a new option is selected, add it to diagnosis, and increase the diagnosis count. */
-    const handleAddDiagnosis = (option: string) => {
+    const handleAddOption = (option: string) => {
         if (option === 'Select') return null;
-        setDiagnosis(diagnosis => {
+        setOptions(diagnosis => {
             if (diagnosis.includes(option))
                 return diagnosis
-            const count = Number.parseInt(getValues(optionsFields.diagnosis_count.id));
-            setValue(optionsFields.diagnosis_count.id, count + 1);
+            const count = Number.parseInt(getValues(fields ? fields.options[0].counter.id : '0'));
+            setValue(fields ? fields.options[0].counter.id : '', count + 1);
             return [...diagnosis, option]
         })
     }
     /** Whenever a field is removed, remove it from diagnosis, and decrease the diagnosis count. */
-    const handleRemoveDiagnosis = (index: number) => {
-        setDiagnosis(diagnosis => diagnosis.filter((_, i) => i !== index))
-        const count = Number.parseInt(getValues(optionsFields.diagnosis_count.id));
-        setValue(optionsFields.diagnosis_count.id, count - 1);
+    const handleRemoveOption = (index: number) => {
+        setOptions(diagnosis => diagnosis.filter((_, i) => i !== index))
+        const count = Number.parseInt(getValues(fields ? fields.options[0].counter.id : '0'));
+        setValue(fields ? fields.options[0].counter.id : '', count - 1);
     }
-    /** Compute a string based on the numeric values of the result. */
-    const describeResult = () => {
-        if (!prediction || !metrics || !metrics.rank_criteria){
-            return null;
-        }
-        // REFRESH FORM
-        const val = Math.round(prediction.pred);
-        const iqr = metrics.rank_criteria.criteria.filter(m => m.rank === prediction.rank)[0].iqr;
-        const top = val + Math.round(iqr/2);
-        const bot = val - Math.round(iqr/2);
-        if (prediction?.rank > 8){
-            return `The patient will have an approximate stay of ${val} days.
-            However, the number of stay days can vary from ${bot} to ${top} days.
-            More data is required for making a more accurate prediction.`
-            // return `Se requieren mayor número de datos para obtener la predicción deseada. 
-            // rank: ${prediction.rank} - pred: ${val}`
-        }
-        return `The patient will have an approximate stay of ${val} days.
-        The number of stay days can vary from ${bot} to ${top} days.`
-        // return `El paciente tendrá una estancia aproximada de ${val} días.
-        // Los días de estancia pueden variar en un rango de ${bot} y ${top} días.`
+    if (!fields){
+        return (
+            <></>
+        )
     }
     return (
-        <form onSubmit={handleSubmit(() => {
-            fetchMetrics();
-            fetchPrediction();
-        })} className="text-start">
+    <section id="calculator-section" className="row vstack gap-3">
+        <CalculatorHeader title={fields.title} subtitle={fields.subtitle} />
+        <form onSubmit={handleSubmit(() => setPredict(true))} className="text-start">
             <section id="form-inputs" className='vstack gap-3'>
-                {numericFields.map((field) => (
-                    <NumberField 
-                        key={field.id}
-                        register={register}
-                        {...field}
-                    />
-                ))}
-                <DynamicFields 
-                    id={optionsFields.diagnosis.id}
-                    name={optionsFields.diagnosis.name}
-                    options={inputs ? inputs.diagnosis : []}
-                    fields={diagnosis}
-                    addField={handleAddDiagnosis}
-                    removeField={handleRemoveDiagnosis}
+                {
+                    fields.numeric.map((field) => (
+                        <NumberField 
+                            key={field.id}
+                            register={register}
+                            {...field}
+                            error={formError}
+                        />
+                    ))
+                }
+                <DynamicFields
+                    id={fields.options[0]?.id}
+                    name={fields.options[0].name}
+                    options={fields.options[0].options}
+                    fields={options}
+                    addField={handleAddOption}
+                    removeField={handleRemoveOption}
                 />
                 <NumberField
                     register={register}
-                    {...optionsFields.diagnosis_count}
+                    {...fields.options[0].counter}
+                    error={formError}
                 />
             </section>
-            <div className="row pt-3 mt-3 border-top vstack gap-2 px-2">
-                <div id="feedback-invalid" className="form-text text-danger mb-2">
-                    {/* {`${formError}`} */}
-                </div>
-                <button type="submit" className="btn btn-success">
-                    Calculate
-                </button>
-                <div className="card bg-info text-light px-0">
-                    <div className="card-body vstack">
-                        <h5>
-                            Results
-                        </h5>
-                        <p className={"w-100 m-0 p-0"}>
-                            {describeResult()}
-                        </p>
-                    </div>
-                </div>
+            <CalculatorOutputs>{
+                prediction && metrics ? 
+                outputDescriptions[name](prediction, metrics)
+                : null
+            }</CalculatorOutputs>
+            <div className="d-flex justify-content-between">
+                <p className="form-text">{`Calculator: ${fields.id}`}</p>
+                <p className="form-text">{`Version: ${fields.version}`}</p>
             </div>
         </form>
+    </section>
     )
 }
 

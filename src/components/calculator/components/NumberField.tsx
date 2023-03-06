@@ -1,4 +1,5 @@
-import type { RegisterOptions, FieldValues } from "react-hook-form"
+import type { RegisterOptions, FieldValues, FieldErrors } from "react-hook-form"
+import { ErrorMessage } from "@hookform/error-message";
 
 interface NumberFieldProps  {
     name: string;
@@ -8,10 +9,11 @@ interface NumberFieldProps  {
     max: number;
     step: number;
     defaultValue: number;
+    error: FieldErrors;
 }
 
 /** Styled Field of type number with label, attributes from props and validation. */
-const NumberField = ({name, id, register, min, max, step, defaultValue}: NumberFieldProps) => {
+const NumberField = ({name, id, register, min, max, step, defaultValue, error}: NumberFieldProps) => {
     const handleValidation = (value: any, formValues: FieldValues) => {
         return (value >= min && value <= max) && typeof(value) === 'number';
     }
@@ -21,14 +23,16 @@ const NumberField = ({name, id, register, min, max, step, defaultValue}: NumberF
                 <label htmlFor={id} className="col-form-label">
                     {name}
                 </label>
+                {error[id] ? <p className="form-text text-danger">{`${min} to ${max}`}</p> : null}
             </div>
             <div className="col-6">
                 <input
                     {...register(id, {
-                        required: true,
+                        required: `${name} is required.`,
                         valueAsNumber: true,
                         validate: handleValidation,
-                        min: min, max: max,
+                        min: min, 
+                        max: max,
                     })}
                     id={id}
                     className="form-control"

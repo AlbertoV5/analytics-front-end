@@ -16,7 +16,7 @@ title: Support
     }
 </style>
 
-## Support
+## SUPPORT
 
 ### Medical Calculators
 
@@ -74,9 +74,3 @@ In statistics, correlation coefficients are a quantitative assessment that measu
 <li> A coefficient of zero represents no linear relationship. </li>
 <li> When the value is in-between 0 and +1/-1, there is a relationship, but the points don’t all fall on a line. As r approaches -1 or 1, the strength of the relationship increases and the data points tend to fall closer to a line.</li>
 </ol>
-
-### Medical History
-
-Clicking “Medical History” will open a window where you can choose to enter either “Medical Conditions” or “Surgeries”. We will start with the Medical Conditions, so click it. On the bottom right of the window click “Add”, and a “Medical Condition” entry form appears. Again, placing at least two letters into the Name field will generate a list of options. Entry Example: the patient has Primary Complaints of insomnia, migraines, and depression which were precipitated by his -------   by -----------. 
-
-Selecting the Name of the Medical Condition will automatically enter the appropriate ICD-11 code. A field is present for the year that the condition occurred followed by a check box to indicate if there was Loss of Consciousness in association with the condition. Then click “Submit” to add this condition to the patient’s chart. Note: All of these entry items will be used for searches and reports, a section that will be available in 2023. Continue to repeat this process adding additional Medical Conditions as needed for each patient

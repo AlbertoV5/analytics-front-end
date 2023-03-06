@@ -1,27 +1,12 @@
 ---
 import MainWide from "../../layouts/MainWide.astro";
-import PatientTable from "../../components/database/PatientTable";
-import DiagnosisTable from "../../components/database/DiagnosisTable";
+import DatabaseTabs from "../../components/database/DatabaseTabs";
 
 ---
 <MainWide title={ 'Database' } redirectUser={true}>
-    <h2 class="pb-2" style="text-align: center;">Database</h2>
-    <p class="form-text">
-        All patient data is de-identified as per HIPAA specifications.
+    <h2 class="pb-2" style="text-align: center;">DATABASE</h2>
+    <p class="form-text text-center">
+        All patient data has been de-identified as per United States HIPAA Privacy Specifications.
     </p>
-    <!-- <div class='d-flex border border-bottom-0 p-2 bg-secondary mb-0 justify-content-between'> -->
-    <div>
-        <h6 class='d-flex border border-bottom-0 p-2 bg-light mb-0 justify-content-between' style="display: inline;">
-            Patient Table
-        </h6>
-        <!-- <input type="number" class="form-control" style="width: 180px; height: 80%; padding: 0px;"/> -->
-    </div>
-    <PatientTable client:visible></PatientTable>
-    <p class="form-text">
-        All diagnosis data is linked to an ICD-11 code.
-    </p>
-    <h6 class='border border-bottom-0 p-2 bg-light mb-0'>
-        Diagnosis Table
-    </h6>
-    <DiagnosisTable client:visible></DiagnosisTable>
+    <DatabaseTabs client:load></DatabaseTabs>
 </MainWide>

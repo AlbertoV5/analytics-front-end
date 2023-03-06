@@ -1,11 +1,13 @@
 ---
-import MainNarrow from '../../layouts/MainNarrow.astro';
-import CalculatorForm from "../../components/calculator/CalculatorForm";
-
+import MainCalculator from '../../layouts/MainCalculator.astro';
+import CalculatorPanel from '../../components/calculator/CalculatorPanel';
 ---
-<MainNarrow title="Calculators" redirectUser={true}>
-	<h2>Congenital Heart Diseases</h2>
-	<h6 class="mb-4">Estimates days in Intensive Care</h6>
-	<CalculatorForm client:load />
-	<div class="mb-4"></div>
-</MainNarrow>
+<MainCalculator title="Calculators" redirectUser={true}>
+	<div slot="header">
+		<h2 class="text-uppercase">Calculators</h2>
+		<p class="form-text">Improve your administrative and medical assessments.</p>
+	</div>
+	<!-- <h6 class="mb-4">Estimates days in Intensive Care</h6> -->
+	<CalculatorPanel slot="calculator" client:load />
+	<!-- <div class="mb-4"></div> -->
+</MainCalculator>
