@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type Inputs = {
-    diagnosis: Array<string>;
+export type CalculatorList = {
+    calculators: Array<string>;
 };
 

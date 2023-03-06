@@ -1,8 +1,8 @@
 /* istanbul ignore file */
 /* tslint:disable */
 /* eslint-disable */
+import type { CalculatorList } from '../models/CalculatorList';
 import type { Fields } from '../models/Fields';
-import type { Inputs } from '../models/Inputs';
 import type { Metrics } from '../models/Metrics';
 import type { PatientData } from '../models/PatientData';
 import type { Prediction } from '../models/Prediction';
@@ -16,35 +16,13 @@ export class CalculatorService {
     /**
      * Read List
      * Read all calculator names that the user has access to.
-     * @returns any Successful Response
+     * @returns CalculatorList Successful Response
      * @throws ApiError
      */
-    public static readListApiV1CalculatorListGet(): CancelablePromise<any> {
+    public static readListApiV1CalculatorListListGet(): CancelablePromise<CalculatorList> {
         return __request(OpenAPI, {
             method: 'GET',
-            url: '/api/v1/calculator_list',
-        });
-    }
-
-    /**
-     * Read Inputs
-     * Read valid inputs for calculator.
-     * @param name
-     * @returns Inputs Successful Response
-     * @throws ApiError
-     */
-    public static readInputsApiV1CalculatorNameInputsGet(
-        name: string,
-    ): CancelablePromise<Inputs> {
-        return __request(OpenAPI, {
-            method: 'GET',
-            url: '/api/v1/calculator/{name}/inputs',
-            path: {
-                'name': name,
-            },
-            errors: {
-                422: `Validation Error`,
-            },
+            url: '/api/v1/calculator_list/list',
         });
     }
 

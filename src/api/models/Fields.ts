@@ -9,7 +9,6 @@ export type Fields = {
     id: string;
     title: string;
     subtitle: string;
-    description: string;
     version: string;
     numeric: Array<NumericField>;
     options: Array<OptionsField>;

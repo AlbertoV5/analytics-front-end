@@ -21,6 +21,7 @@ const DynamicFields = ({id, name, options, fields, addField, removeField}: Dynam
                 <label htmlFor={id} className="col-form-label">
                     {name}
                 </label>
+                {/* {error[id] ? <p className="form-text text-danger">{`${min} to ${max}`}</p> : null} */}
             </div>
             <div className="col-6">
                 <select
@@ -35,6 +36,8 @@ const DynamicFields = ({id, name, options, fields, addField, removeField}: Dynam
                 </select>
             </div>
         </div>
+        {
+            fields.length > 0 ?
             <ul className="list-group px-0 mx-0">
                 {fields.map((field, index) => (
                     <li key={field} id={`${field}-field`} 
@@ -51,6 +54,8 @@ const DynamicFields = ({id, name, options, fields, addField, removeField}: Dynam
                     </li>
                 ))}
             </ul>
+            : null
+        }
         </>
     )
 }

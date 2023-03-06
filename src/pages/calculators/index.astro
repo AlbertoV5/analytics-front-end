@@ -1,7 +1,6 @@
 ---
 import MainCalculator from '../../layouts/MainCalculator.astro';
-import CalculatorForm from "../../components/calculator/CalculatorForm";
-
+import CalculatorPanel from '../../components/calculator/CalculatorPanel';
 ---
 <MainCalculator title="Calculators" redirectUser={true}>
 	<div slot="header">
@@ -9,6 +8,6 @@ import CalculatorForm from "../../components/calculator/CalculatorForm";
 		<p class="form-text">Improve your administrative and medical assessments.</p>
 	</div>
 	<!-- <h6 class="mb-4">Estimates days in Intensive Care</h6> -->
-	<CalculatorForm slot="calculator" client:load />
+	<CalculatorPanel slot="calculator" client:load />
 	<!-- <div class="mb-4"></div> -->
 </MainCalculator>

@@ -10,8 +10,8 @@ export type { app__schemas__kardias__DiagnosisData } from './models/app__schemas
 export type { app__schemas__kardias__Patient } from './models/app__schemas__kardias__Patient';
 export type { app__schemas__schemas__DiagnosisData } from './models/app__schemas__schemas__DiagnosisData';
 export type { app__schemas__schemas__Patient } from './models/app__schemas__schemas__Patient';
+export type { CalculatorList } from './models/CalculatorList';
 export type { ClassificationScore } from './models/ClassificationScore';
-export type { ClassificationScores } from './models/ClassificationScores';
 export type { DatabaseVersion } from './models/DatabaseVersion';
 export type { DatabaseVersionWrapper_DiagnosisData_ } from './models/DatabaseVersionWrapper_DiagnosisData_';
 export type { DatabaseVersionWrapper_Origin_ } from './models/DatabaseVersionWrapper_Origin_';
@@ -19,7 +19,6 @@ export type { DatabaseVersionWrapper_Patient_ } from './models/DatabaseVersionWr
 export type { DatabaseVersionWrapper_PatientComplete_ } from './models/DatabaseVersionWrapper_PatientComplete_';
 export type { Fields } from './models/Fields';
 export type { HTTPValidationError } from './models/HTTPValidationError';
-export type { Inputs } from './models/Inputs';
 export type { Metrics } from './models/Metrics';
 export type { NumericField } from './models/NumericField';
 export type { OptionsField } from './models/OptionsField';
@@ -31,10 +30,7 @@ export type { PatientOrigin } from './models/PatientOrigin';
 export type { Prediction } from './models/Prediction';
 export type { PredictionScore } from './models/PredictionScore';
 export type { RankAverage } from './models/RankAverage';
-export type { RankCriteria } from './models/RankCriteria';
-export type { RankSpearman } from './models/RankSpearman';
 export type { RankStat } from './models/RankStat';
-export type { RankStatistics } from './models/RankStatistics';
 export type { SpearmanScore } from './models/SpearmanScore';
 export type { ValidationError } from './models/ValidationError';
 
