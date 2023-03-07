@@ -1,10 +1,10 @@
 ---
-title: Intensive Care Stay Days Predictor
+title: Documentation on ICU Stay Days Predictor
 description: Calculate number of days that a patient will stay in the Intensive Care Unit using Machine Learning.
 date: "2023-02-15"
 ---
 
-# Calculadora
+# Calculadora de Inteligencia Artificial
 
 Health Analytics brinda 3 diferentes modelos para la predicción de datos, de los cuales, el seleccionado es el modelo de clasificación de pacientes de acuerdo al rango de días.
 Los pacientes están clasificados en 4 grupos: 
@@ -22,13 +22,11 @@ El número de pacientes de cada grupo:
 
 La predicción tiene probabilidad de acertar de alrededor del 80% por lo que se complementa con modelos adicionales. Estos incluyen predicciones y métricas que señalan rangos de variación para integrar el resultado.
 
-En el estudio se implementó un “Score” que complementa los resultados para obtener una predicción asertiva de los grupos. 
-
-El rango del Score va de 1 a 10, donde el 1 determina mayor exactitud.
+En el estudio se implementó un Rank / Cluster que complementa los resultados para obtener una predicción asertiva de los grupos. El rango del Score va de 1 a 10, donde el 1 determina mayor exactitud.
 
 Los resultados del análisis recomiendan mejorar la captura de la base de datos para obtener mayor información y poder realizar una clasificación más específica. 
 
-- Algunas posibles servicios para su mejora, incluyen:
-- Sistema para captura de pacientes
-- Formato para captura de datos basado en ICD
-- Base de datos completa
+Algunas posibles servicios para su mejora, incluyen:
+- Sistema para captura de pacientes.
+- Formato para captura de datos basado en ICD.
+- Mejora de base de datos.

@@ -8,7 +8,13 @@ workbook: CongenitalHearthDisease_Visualizations
 dashboard: {
     name: Portada,
     width: 100%,
-    height: 600px
+    height: 800px
 }
-sheets: [{name: Mapa_Mex}, {name: Stay_Days}]
+sheets: [
+    {name: Mapa_General},
+    {name: Mapa_Mex}, 
+    {name: Gender},
+    {name: Diagnosis}, 
+    {name: Stay_Days}
+]
 ---

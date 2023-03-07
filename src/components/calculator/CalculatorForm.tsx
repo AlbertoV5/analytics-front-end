@@ -38,7 +38,7 @@ const CalculatorForm = ({name}: {name: calculatorNames}) => {
         enabled: predict
     })
     // Fetch prediction data Query: onSubmit.
-    const { error: predictionError, data: prediction, isSuccess } = useQuery({
+    const { error: predictionError, data: prediction, isSuccess, isLoading } = useQuery({
         queryKey: ['predictionData'],
         queryFn: () => getSession().then(session => {
             OpenAPI.TOKEN = session.token;
@@ -70,7 +70,30 @@ const CalculatorForm = ({name}: {name: calculatorNames}) => {
     }
     if (!fields){
         return (
-            <></>
+            <div className="vstack gap-2">
+                <p className="placeholder-glow">
+                    <span className="placeholder col-8 placeholder-lg"></span>
+                </p>
+                <p className="placeholder-glow">
+                    <span className="placeholder col-12 placeholder-lg"></span>
+                </p>
+                <p className="placeholder-glow">
+                    <span className="placeholder col-12 placeholder-lg"></span>
+                </p>
+                <p className="placeholder-glow">
+                    <span className="placeholder col-12 placeholder-lg"></span>
+                </p>
+                <p className="placeholder-glow">
+                    <span className="placeholder col-12 placeholder-lg"></span>
+                </p>
+                <p className="placeholder-glow">
+                    <span className="placeholder col-12 placeholder-lg"></span>
+                </p>
+                <p className="placeholder-glow">
+                    <span className="placeholder col-12 placeholder-lg"></span>
+                </p>
+                {/* <CalculatorOutputs></CalculatorOutputs> */}
+            </div>
         )
     }
     return (
@@ -102,10 +125,14 @@ const CalculatorForm = ({name}: {name: calculatorNames}) => {
                     error={formError}
                 />
             </section>
+            
             <CalculatorOutputs>{
                 prediction && metrics ? 
                 outputDescriptions[name](prediction, metrics)
-                : null
+                : predict && isLoading ? 
+                <div className="spinner-border" role="status">
+                    <span className="visually-hidden">Loading...</span>
+                </div> : null
             }</CalculatorOutputs>
             <div className="d-flex justify-content-between">
                 <p className="form-text">{`Calculator: ${fields.id}`}</p>

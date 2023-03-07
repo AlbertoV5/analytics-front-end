@@ -14,9 +14,9 @@ export const outputDescriptions = {
         const iqr = metrics.kmeans_criteria?.filter(item => item.rank == prediction.rank)[0].iqr;
         return (
             <>
-                <p>{`The patient will stay ${classification}`}</p>
+                <p>{`The patient will have a length of stay of ${classification}`}</p>
                 <p>{`Linear prediction estimate: ${prediction.pred} day(s).`}</p>
-                <p>{`Based on the patient's Cluster of ${prediction.rank} out of 10, 
+                <p>{`Based on the patient's Cluster of ${prediction.rank} (out of 10), 
                 the number of stay days can vary by about 
                 ${iqr ? `-${Math.round(iqr / 2)} to +${Math.round(iqr / 2)}` : 'not defined'} day(s).`}
                 </p>

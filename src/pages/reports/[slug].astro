@@ -30,16 +30,17 @@ const { Content } = await post.render();
             </div>
         </header>
         <p>{post.data.description}</p>
-        <tableau-viz id="tableau1" 
+        <tableau-viz id="tableau1"
             src={`https://public.tableau.com/views/${post.data.workbook}/${post.data.dashboard.name}`} 
             class="w-100 border rounded p-4"
+            style="height: 80vh"
             width={post.data.dashboard.width ? post.data.dashboard.width : "100%"} 
             height={post.data.dashboard.height ? post.data.dashboard.height : "500px"} 
-            toolbar="bottom"
+            toolbar="top"
             hide-tabs disable-url-actions
         />
         <Content></Content>
-        {post.data.sheets.length > 0 ? <h4>Visualizations</h4> : null}
+        {post.data.sheets.length > 0 ? <h4 class="pt-4">Visualizations</h4> : null}
         <div class="row">
             {
                 post.data.sheets.map((sheet: any) => (
@@ -62,7 +63,7 @@ const { Content } = await post.render();
                                 <div class="modal-content">
                                     <div class="modal-header">
                                         <h1 class="modal-title fs-5" id={`modal-label-${sheet.name}`}>
-                                            {`${post.data.title} Visualization: ${sheet.name}`}
+                                            {`${post.data.title}: ${sheet.name}`}
                                         </h1>
                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                     </div>
@@ -71,8 +72,8 @@ const { Content } = await post.render();
                                         src={`https://public.tableau.com/views/${post.data.workbook}/${sheet.name}`} 
                                         class="w-100 border rounded p-4"
                                         width={"100%"} 
-                                        height={sheet.height ? sheet.height : "500px"} 
-                                        toolbar="bottom" 
+                                        height={sheet.height ? sheet.height : "620px"} 
+                                        toolbar="top" 
                                         hide-tabs disable-url-actions
                                     />
                                 </div>
