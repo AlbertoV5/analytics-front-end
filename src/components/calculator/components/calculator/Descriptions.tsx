@@ -15,8 +15,8 @@ export const outputDescriptions = {
         return (
             <>
                 <p>{`The patient will stay ${classification}`}</p>
-                <p>{`A linear prediction estimates ${prediction.pred} day(s).`}</p>
-                <p>{`Based on the patient's Rank of ${prediction.rank} out of 10, 
+                <p>{`Linear prediction estimate: ${prediction.pred} day(s).`}</p>
+                <p>{`Based on the patient's Cluster of ${prediction.rank} out of 10, 
                 the number of stay days can vary by about 
                 ${iqr ? `-${Math.round(iqr / 2)} to +${Math.round(iqr / 2)}` : 'not defined'} day(s).`}
                 </p>
