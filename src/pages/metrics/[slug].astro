@@ -1,0 +1,25 @@
+---
+import { CollectionEntry, getCollection } from "astro:content";
+import MainMid from "../../layouts/MainMid.astro";
+
+// const blogPosts = await getCollection("metrics");
+
+export async function getStaticPaths() {
+    const posts = await getCollection("metrics");
+    return posts.map((post) => ({
+        params: { slug: post.slug },
+        props: { post },
+    }));
+}
+
+interface Props {
+    post: CollectionEntry<"metrics">;
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+---
+
+<MainMid title={post.data.title}>
+    <Content></Content>
+</MainMid>

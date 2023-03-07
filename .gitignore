@@ -1,6 +1,7 @@
 # custom
 custom.css
 custom.css.map
+.astro/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

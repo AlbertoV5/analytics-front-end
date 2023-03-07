@@ -41,7 +41,7 @@ export default function DatabaseTabs() {
             <div className="py-2 d-flex justify-content-between">
                 <h4>{username ? `Welcome, ${username}` : null}</h4>
                 <div>
-                    <button className="btn btn-success">View Report</button>
+                    <a className="btn btn-success" href="reports/kardias1">View Report</a>
                 </div>
             </div>
             {versionInfo ? <VersionInfo version={versionInfo}></VersionInfo>: null}

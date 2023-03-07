@@ -1,0 +1,93 @@
+---
+import { CollectionEntry, getCollection } from "astro:content";
+import MainWide from "../../layouts/MainWide.astro";
+
+
+export async function getStaticPaths() {
+    const posts = await getCollection("reports");
+    return posts.map((post) => ({
+        params: { slug: post.slug },
+        props: { post },
+    }));
+}
+
+interface Props {
+    post: CollectionEntry<"reports">;
+}
+
+const { post } = Astro.props;
+const { Content } = await post.render();
+
+---
+<script type="module" src="https://public.tableau.com/javascripts/api/tableau.embedding.3.4.0.min.js"></script>
+<MainWide title={post.data.title}>
+    <div class="row vstack gap-2">
+        <header class="row">
+            <h3>{post.data.title}</h3>
+            <div class="d-flex justify-cotent-between gap-2">
+                <p class="form-text">{`Date: ${post.data.date}`}</p>
+                <p class="form-text">{`Author: ${post.data.author}`}</p>
+            </div>
+        </header>
+        <p>{post.data.description}</p>
+        <tableau-viz id="tableau1" 
+            src={`https://public.tableau.com/views/${post.data.workbook}/${post.data.dashboard.name}`} 
+            class="w-100 border rounded p-4"
+            width={post.data.dashboard.width ? post.data.dashboard.width : "100%"} 
+            height={post.data.dashboard.height ? post.data.dashboard.height : "500px"} 
+            toolbar="bottom"
+            hide-tabs disable-url-actions
+        />
+        <Content></Content>
+        {post.data.sheets.length > 0 ? <h4>Visualizations</h4> : null}
+        <div class="row">
+            {
+                post.data.sheets.map((sheet: any) => (
+                    <div class="col-8 col-lg-4">
+                        <a type="button" data-bs-toggle="modal" data-bs-target={`#modal-${sheet.name}`}>
+                            <img
+                                id={`thumb-img-${post.slug}-${sheet.name}`}
+                                src={`https://public.tableau.com/thumb/views/
+                                    ${post.data.workbook}/${sheet.name}`
+                                }
+                                width="100%"
+                            />
+                        </a>
+                        <div class="modal fade modal-xl" id={`modal-${sheet.name}`} 
+                            tabindex="-1" 
+                            aria-labelledby={`modal-label-${sheet.name}`} 
+                            aria-hidden="true"
+                        >
+                            <div class="modal-dialog modal-fullscreen">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id={`modal-label-${sheet.name}`}>
+                                            {`${post.data.title} Visualization: ${sheet.name}`}
+                                        </h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                <div class="modal-body">
+                                    <tableau-viz id={`tableau-${sheet.name}`}
+                                        src={`https://public.tableau.com/views/${post.data.workbook}/${sheet.name}`} 
+                                        class="w-100 border rounded p-4"
+                                        width={"100%"} 
+                                        height={sheet.height ? sheet.height : "500px"} 
+                                        toolbar="bottom" 
+                                        hide-tabs disable-url-actions
+                                    />
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                ))
+            }
+        </div>
+    </div>
+    <div class="row">
+
+    </div>
+</MainWide>
