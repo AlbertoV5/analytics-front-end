@@ -18,6 +18,7 @@ const reports = defineCollection({
     schema: z.object({
         title: z.string(),
         description: z.string(),
+        author: z.string(),
         date: z.string(),
         workbook: z.string(),
         dashboard: tableauData,
