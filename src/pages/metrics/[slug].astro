@@ -20,6 +20,6 @@ const { post } = Astro.props;
 const { Content } = await post.render();
 ---
 
-<MainMid title={post.data.title}>
+<MainMid title={post.data.title} redirectUser={true}>
     <Content></Content>
 </MainMid>

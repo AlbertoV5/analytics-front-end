@@ -20,7 +20,7 @@ const { Content } = await post.render();
 
 ---
 <script type="module" src="https://public.tableau.com/javascripts/api/tableau.embedding.3.4.0.min.js"></script>
-<MainWide title={post.data.title}>
+<MainWide title={post.data.title} redirectUser={true}>
     <div class="row vstack gap-2">
         <header class="row">
             <h3>{post.data.title}</h3>
