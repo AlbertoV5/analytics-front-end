@@ -20,9 +20,8 @@ import node from "@astrojs/node";
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://health-analytics-mx.github.io/ai-calculators/',
-  base: '/ai-calculators',
-  // site: 'https://d3a9hc17ca9hsd.cloudfront.net/',
+  // site: 'https://health-analytics-mx.github.io/ai-calculators/',
+  // base: '/ai-calculators',
   integrations: [react(), robotsTxt(), sitemap()], //purgecss()], // , compress()]
   // output: "server",
   // adapter: node({

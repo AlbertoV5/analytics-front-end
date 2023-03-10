@@ -8,7 +8,8 @@
     "start": "astro dev",
     "styles": "sass src/styles/custom.scss public/custom.css",
     "build": "astro build",
-    "build2": "sass src/styles/custom.scss public/custom.css && astro build",
+    "build-dev": "astro build --base 'ai-calculators' --site 'https://health-analytics-mx.github.io/ai-calculators'",
+    "build-old": "sass src/styles/custom.scss public/custom.css && astro build",
     "openapi": "openapi --input openapi.json --output ./src/api",
     "preview": "astro preview",
     "astro": "astro"
