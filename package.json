@@ -7,13 +7,13 @@
     "dev": "astro dev",
     "start": "astro dev",
     "styles": "sass src/styles/custom.scss public/custom.css",
-    "build": "astro build --base 'ai-calculators' --site 'https://health-analytics-mx.github.io/ai-calculators'",
-    "build-prod": "astro build",
-    "build-old": "sass src/styles/custom.scss public/custom.css && astro build",
-    "openapi": "openapi --input openapi.json --output ./src/api",
     "preview": "astro preview",
-    "astro": "astro",
-    "test:e2e": "playwright test"
+    "openapi": "openapi --input openapi.json --output ./src/api",
+    "build": "astro build",
+    "build-dev": "astro build --base 'ai-calculators' --site 'https://health-analytics-mx.github.io/ai-calculators'",
+    "build-prod": "astro build",
+    "test:e2e": "HAMX_BASE_URL=http://localhost:3000 npx playwright test",
+    "test-dev:e2e": "HAMX_BASE_URL=https://health-analytics-mx.github.io/ai-calculators npx playwright test"
   },
   "dependencies": {
     "@astrojs/node": "^5.1.0",
