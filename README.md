@@ -1,64 +1,57 @@
-# Hamx A.I. Calculators Website
+# Health Analytics MX - A.I. Web App
 
-Static site built with [Astro](https://astro.build/), React and Bootstrap. Using AWS Cognito for authentication.
+Static site (MPA) built with [Astro](https://astro.build/), React and Bootstrap. Using AWS Cognito for authentication.
+
+## Introduction
+
+Astro benefits:
+
+- An agile TypeScript-first development environment.
+- No compromises on UI Frameworks.
+- Ability to develop for static site generation or server-side rendering.
+- Multiple integrations and CMS options.
+
+React benefits:
+
+- Best support for any UI framework.
+- React Query / TanStack query.
+
+Bootstrap benefits:
+
+- A Design system that can be customized via SCSS.
+- Fast and easy to develop with.
+
 
 ## DevOps
 
-Branches flow:
+Environments:
 
-- {feature} -> dev -> main
+1. Local environment.
+2. Staging environment (GitHub via 'dev' branch).
+3. Production environment (AWS via 'main' branch).
 
-Create any feature branch, test locally, and push to the branch to run unit tests. Then make a pull request to the dev branch. Once the tests pass, and any manual testing is performed in the dev environment/deployment, make a pull request to the main branch.
+All automated testing is done on all Pull Requests of both 'dev' and 'main'. The branch flow is the following: 
 
-Deployments:
+{feature} -> dev -> main
 
-- dev -> deploy.yml -> GitHub Pages
-- main -> prod_deploy.yml -> AWS S3 (+CloudFront)
+### Step by Step DevOps
 
-Tests:
+1. Create any feature branch locally and run any relevant tests.
+2. Push to remote and make a Pull Request to 'dev' on GitHub.
+3. Once all 'dev' tests pass, review the code and determine whether to merge or not.
+4. Once 'dev' is merged, it will deploy to the staging environment. 
+5. Perform any manual testing on the staging environment, fixes, etc.
+6. If ready to deploy to production, create Pull Request to 'main' on GitHub.
+7. Once all 'main' tests pass, review the code and determine whether to merge or not.
+8. Once 'main' is merged, it will deploy to production.
+9. Any monitoring is done via Google Analytics and AWS CloudWatch.
 
-- {feature} -> TODO: implement unit/integration tests -> run unit and integration tests
-- dev -> playwright -> run end-to-end tests
 
-## Styles
+<img src="./resources/img/devopsflow.png" width="850px" alt="DevOps step by step diagram">
 
-Using Bootstrap with custom SCSS. Import with Astro in Layout. Alternatively compile with:
+## Development
 
-```shell
-npm run styles
-```
-
-## API
-
-Using OpenAPI to generate the schemas and methods exported from FastAPI.
-
-```shell
-npm run openapi
-```
-
-## Auth
-
-Using AWS SDK for JavaScript.
-
-```shell
-amazon-cognito-identity-js
-```
-
-## Content
-
-Using Astro's content system for rendering HTML from markdown. 
-
-```js
-export async function getStaticPaths() {
-    const posts = await getCollection("metrics");
-    return posts.map((post) => ({
-        params: { slug: post.slug },
-        props: { post },
-    }));
-}
-```
-
-## Directories
+### Directories
 
 Following the Astro framework, the main directories in src are:
 
@@ -84,3 +77,51 @@ src
 - Pages: File-based routing webpages that use Layouts and Components.
 - Scripts: JavaScript analytics or fixes scripts loaded by Layouts.
 - Styles: CSS and SCSS.
+
+### Tests
+
+All tests go in the ./tests directory. Test frameworks used are Vitest for unit and integration tests, and Playwright for End-to-end tests.
+
+```shell
+tests
+├── e2e
+└── unit
+```
+
+### Styles
+
+Using Bootstrap with custom SCSS. Import with Astro in Layout. Alternatively compile with:
+
+```shell
+npm run styles
+```
+
+### API
+
+Using OpenAPI to generate the schemas and methods exported from FastAPI.
+
+```shell
+npm run openapi
+```
+
+### Auth
+
+Using AWS SDK for JavaScript.
+
+```shell
+amazon-cognito-identity-js
+```
+
+### Content
+
+Using Astro's content system for rendering HTML from markdown. 
+
+```js
+export async function getStaticPaths() {
+    const posts = await getCollection("metrics");
+    return posts.map((post) => ({
+        params: { slug: post.slug },
+        props: { post },
+    }));
+}
+```
