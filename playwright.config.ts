@@ -34,7 +34,7 @@ export default defineConfig({
   webServer: {
     command: 'npm run build && npm run preview',
     url: 'http://localhost:3000',
-    timeout: 120 * 1000,
+    timeout: 180 * 1000,
     reuseExistingServer: !process.env.CI,
   },
   use: {
@@ -52,10 +52,10 @@ export default defineConfig({
       use: { ...devices['Desktop Chrome'] },
     },
 
-    {
-      name: 'firefox',
-      use: { ...devices['Desktop Firefox'] },
-    },
+    // {
+    //   name: 'firefox',
+    //   use: { ...devices['Desktop Firefox'] },
+    // },
 
     {
       name: 'webkit',
@@ -73,10 +73,10 @@ export default defineConfig({
     // },
 
     /* Test against branded browsers. */
-    // {
-    //   name: 'Microsoft Edge',
-    //   use: { channel: 'msedge' },
-    // },
+    {
+      name: 'Microsoft Edge',
+      use: { channel: 'msedge' },
+    },
     // {
     //   name: 'Google Chrome',
     //   use: { channel: 'chrome' },
