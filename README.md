@@ -6,20 +6,26 @@ Static site (MPA) built with [Astro](https://astro.build/), React and Bootstrap.
 
 Astro benefits:
 
-- An agile TypeScript-first development environment.
+- Fairly agile TypeScript-first framework with great tooling and integrations.
 - No compromises on UI Frameworks.
 - Ability to develop for static site generation or server-side rendering.
-- Multiple integrations and CMS options.
+- File-based routing for content and great Markdown support.
 
 React benefits:
 
 - Best support for any UI framework.
-- React Query / TanStack query.
+- React Query / TanStack query for API calls.
 
 Bootstrap benefits:
 
-- A Design system that can be customized via SCSS.
 - Fast and easy to develop with.
+- Can be customized via SCSS.
+- JavaScript for common interactions.
+
+AWS Cognito benefits:
+
+- Integrates well with the Back-End.
+- Decent SDK.
 
 
 ## DevOps
