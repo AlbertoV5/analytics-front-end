@@ -153,3 +153,9 @@ thumb
 sketch
 
 # End of https://www.toptal.com/developers/gitignore/api/react
+/test-results/
+/playwright-report/
+/playwright/.cache/
+/test-results/
+/playwright-report/
+/playwright/.cache/
