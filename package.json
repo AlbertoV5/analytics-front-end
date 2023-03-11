@@ -9,8 +9,8 @@
     "styles": "sass src/styles/custom.scss public/custom.css",
     "preview": "astro preview",
     "openapi": "openapi --input openapi.json --output ./src/api",
-    "build": "astro build",
-    "build-dev": "astro build --base 'ai-calculators' --site 'https://health-analytics-mx.github.io/ai-calculators'",
+    "build": "astro build --base 'ai-calculators' --site 'https://health-analytics-mx.github.io/ai-calculators'",
+    "build-local": "astro build",
     "build-prod": "astro build",
     "test:e2e": "HAMX_BASE_URL=http://localhost:3000 npx playwright test",
     "test-dev:e2e": "HAMX_BASE_URL=https://health-analytics-mx.github.io/ai-calculators npx playwright test"
