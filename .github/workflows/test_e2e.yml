@@ -1,9 +1,9 @@
-name: Playwright Tests
+name: End-to-end Tests
 on:
   push:
-    branches: [ dev ]
+    branches: [ test ]
   pull_request:
-    branches: [ dev ]
+    branches: [ test ]
 jobs:
   test:
     timeout-minutes: 30
