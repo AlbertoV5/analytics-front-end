@@ -1,9 +1,7 @@
 name: Unit Tests
 on:
-  push:
-    branches: [ test ]
   pull_request:
-    branches: [ test ]
+    branches: [ dev, main ]
 jobs:
   test-unit:
     timeout-minutes: 10
