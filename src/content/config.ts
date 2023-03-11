@@ -10,8 +10,8 @@ const metrics = defineCollection({
 
 const tableauData = z.object({
     name: z.string(),
-    // width: z.string(),
-    // height: z.string()
+    width: z.optional(z.string()),
+    height: z.optional(z.string()),
 })
 
 const reports = defineCollection({

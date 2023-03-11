@@ -1,4 +1,4 @@
-name: Deploy Website
+name: Deploy to AWS
 
 on:
   push:
@@ -20,7 +20,7 @@ jobs:
       - name: Install modules
         run: npm ci
       - name: Build application
-        run: npm run build
+        run: npm run build-prod
       - name: Deploy to S3
         run: aws s3 sync ./dist/ s3://${{ secrets.BUCKET_ID }}/dist
       - name: Create CloudFront invalidation

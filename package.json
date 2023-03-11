@@ -7,11 +7,13 @@
     "dev": "astro dev",
     "start": "astro dev",
     "styles": "sass src/styles/custom.scss public/custom.css",
-    "build": "astro build",
-    "build2": "sass src/styles/custom.scss public/custom.css && astro build",
-    "openapi": "openapi --input openapi.json --output ./src/api",
     "preview": "astro preview",
-    "astro": "astro"
+    "openapi": "openapi --input openapi.json --output ./src/api",
+    "build": "astro build --base 'ai-calculators' --site 'https://health-analytics-mx.github.io/ai-calculators'",
+    "build-local": "astro build",
+    "build-prod": "astro build",
+    "test:unit": "npx vitest --config vitest.config.ts",
+    "test:e2e": "npx playwright test"
   },
   "dependencies": {
     "@astrojs/node": "^5.1.0",
@@ -36,9 +38,11 @@
     "svgo": "^2.8.0"
   },
   "devDependencies": {
+    "@playwright/test": "^1.31.2",
     "@types/js-cookie": "^3.0.2",
     "openapi-typescript": "^6.1.0",
     "openapi-typescript-codegen": "^0.23.0",
-    "sass": "^1.57.1"
+    "sass": "^1.57.1",
+    "vitest": "^0.29.2"
   }
 }

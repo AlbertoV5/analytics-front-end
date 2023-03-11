@@ -15,14 +15,11 @@ import compress from "astro-compress";
 // https://astro.build/config
 import purgecss from "astro-purgecss";
 
-// https://astro.build/config
-import node from "@astrojs/node";
 
 // https://astro.build/config
 export default defineConfig({
-  // site: 'https://health-analytics-mx.github.io/ai-calculators/',
-  // base: '/ai-calculators',
-  // site: 'https://d3a9hc17ca9hsd.cloudfront.net/',
+  site: 'https://app.healthanalyticsmx.com',
+  base: '',
   integrations: [react(), robotsTxt(), sitemap()], //purgecss()], // , compress()]
   // output: "server",
   // adapter: node({
