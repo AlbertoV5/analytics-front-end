@@ -12,7 +12,8 @@
     "build-old": "sass src/styles/custom.scss public/custom.css && astro build",
     "openapi": "openapi --input openapi.json --output ./src/api",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "@astrojs/node": "^5.1.0",
