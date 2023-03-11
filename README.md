@@ -8,6 +8,8 @@ Branches flow:
 
 - {feature} -> dev -> main
 
+Create any feature branch, test locally, and push to the branch to run unit tests. Then make a pull request to the dev branch. Once the tests pass, and any manual testing is performed in the dev environment/deployment, make a pull request to the main branch.
+
 Deployments:
 
 - dev -> deploy.yml -> GitHub Pages
@@ -17,8 +19,6 @@ Tests:
 
 - {feature} -> TODO: implement unit/integration tests -> run unit and integration tests
 - dev -> playwright -> run end-to-end tests
-
-Environment Variables and Secrets are available in the repository settings.
 
 ## Styles
 
@@ -48,7 +48,7 @@ amazon-cognito-identity-js
 
 Using Astro's content system for rendering HTML from markdown. 
 
-```ts
+```js
 export async function getStaticPaths() {
     const posts = await getCollection("metrics");
     return posts.map((post) => ({
@@ -60,7 +60,7 @@ export async function getStaticPaths() {
 
 ## Directories
 
-Following Astro file-based routing, the main directories in src are:
+Following the Astro framework, the main directories in src are:
 
 ```shell
 src
