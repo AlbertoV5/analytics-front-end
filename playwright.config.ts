@@ -32,9 +32,9 @@ export default defineConfig({
   reporter: 'html',
   /* Shared settings for all the projects below. See https://playwright.dev/docs/api/class-testoptions. */
   webServer: {
-    command: 'npm run preview',
+    command: 'npm run build && npm run preview',
     url: 'http://localhost:3000',
-    timeout: 240 * 1000,
+    timeout: 120 * 1000,
     reuseExistingServer: !process.env.CI,
   },
   use: {
