@@ -9,9 +9,7 @@ const BASE_URL = import.meta.env.BASE_URL;
 const calculators_link = `${BASE_URL}calculators`;
 const metrics_link = `${BASE_URL}metrics`;
 const database_link = `${BASE_URL}database`;
-const support_link = `${BASE_URL}support`;
 ---
-
 <MainLanding title="Health Analytics" firstColor="" secondColor="bg-secondary" thirdColor="">
 	<section slot="first" id="header-section" class="row d-flex justify-content-center">
 		<header class="row text-center vstack gap-3">
@@ -30,8 +28,8 @@ const support_link = `${BASE_URL}support`;
 			</div>
 		</header>
 		<section class="row text-center pt-3">
-			<div class="d-flex justify-content-center lh-lg">
-				<LoginButton idSuffix={'-homepage'} style={"width: 120px; font-weight: 500;"}></LoginButton>
+			<div class="d-flex justify-content-center">
+				<LoginButton idSuffix={'-homepage'} style={"width: 100px; font-weight: 500;"}></LoginButton>
 				<ContactButton idSuffix={'-homepage'} style={"width: 120px; font-weight: 500;"}></ContactButton>
 			</div>
 		</section>
@@ -89,17 +87,6 @@ const support_link = `${BASE_URL}support`;
 		</div>
 	</section>
 	<section slot="third" id="third-landing-section" class="text-light container-fluid d-flex justify-content-center">
-		<!-- <div class="row">
-			<p>
-				Our company combines cutting-edge computational systems using Data Science for the Health & Wellness field. We offer novel Machine Learning Applications and Calculators for the medical field, helping doctors and hospitals to be part of the Artifical Intelligence Revolution.
-			</p>
-			<h3>
-				What is a Data Scientist?
-			</h3>
-			<p>
-				A  Data Scientist is a data expert. The role of a data scientist is to combine computer science, statistics, and mathematics. It is one 
-				of the most demanded professions today, due to the increasing data quantity managed by companies and professionals. 
-			</p>
-		</div> -->
+		<!-- TODO: FINISH SECTION -->
 	</section>
 </MainLanding>

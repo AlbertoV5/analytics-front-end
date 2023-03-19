@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useSession } from '../../login/hooks/useSession';
 import { useQuery } from '@tanstack/react-query'
-import { OriginService, OpenAPI } from '../../../api';
+import { OriginService, OpenAPI } from '../../../client';
 import { API_URL } from '../../../config';
 
 import TableControls from '../components/TableControls';

@@ -11,7 +11,7 @@ const passwordErrors = [
   },
   {
     match: "not long enough",
-    message: "Password must be at least 16-characters long.",
+    message: "Password must be at least 8-characters long.",
   }
 ]
 

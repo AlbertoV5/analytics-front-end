@@ -1,7 +1,7 @@
 import { useQuery, useMutation } from "@tanstack/react-query";
 import { useSession } from "../login/hooks/useSession";
 
-import { CalculatorService, OpenAPI } from "../../api";
+import { CalculatorService, OpenAPI } from "../../client";
 import type { calculatorNames } from "./components/calculator/Descriptions"
 
 const namesMap = {
