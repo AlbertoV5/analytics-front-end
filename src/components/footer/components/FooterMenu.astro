@@ -1,0 +1,28 @@
+---
+/** 
+ * List of anchor elements with hrefs to either local or external sites.
+ * Includes title.
+*/
+export interface Props {
+    title: string;
+    links: {name: string, href: string, blank?: boolean}[];
+}
+const { title, links } = Astro.props;
+---
+<section class="row">
+    <h1 class="footer-header text-uppercase">
+        {title}
+    </h1>
+    <ul>{links.map(link => (
+        <li id={`${link.name.toLowerCase()}-footer`}>
+            <a class="footer-link" 
+                id={`${link.name.toLowerCase()}-footer-link`} 
+                href={`${link.href}`} 
+                target={link.blank ? 'blank' : '_self'}
+            >
+                {link.name}
+            </a>
+        </li>
+    ))}
+    </ul>
+</section>

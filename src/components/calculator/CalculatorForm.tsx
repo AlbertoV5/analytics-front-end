@@ -6,7 +6,7 @@ import { useForm } from "react-hook-form";
 import DynamicFields from "./components/DynamicFields";
 import NumberField from "./components/NumberField";
 
-import { CalculatorService, OpenAPI } from "../../api";
+import { CalculatorService, OpenAPI } from "../../client";
 
 import { outputDescriptions, calculatorNames } from "./components/calculator/Descriptions";
 import { CalculatorOutputs, CalculatorHeader } from "./components/calculator/CalculatorParts";

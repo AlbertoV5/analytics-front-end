@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
 import { useSession } from "../login/hooks/useSession";
-import PatientTable from "./tables/PatientTable";
 import DiagnosisTable from "./tables/DiagnosisTable";
+import PatientTable from "./tables/PatientTable";
 import OriginTable from "./tables/OriginTable";
+import { useEffect, useState } from "react";
 
-import type { DatabaseVersion } from "../../api";
+import type { DatabaseVersion } from "../../client";
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import VersionInfo from "./components/VersionInfo";

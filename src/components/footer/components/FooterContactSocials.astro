@@ -1,0 +1,49 @@
+---
+/** Combines regular contact info with social links.
+ * Both contact and social arrays use an object with an icon and another string.
+ * Use the contact array with strings as info. Use the socials array with links.
+ * Make sure the icons exist under src/icons.
+ */
+import { Icon } from "astro-icon";
+export interface Props {
+    contactTitle: string;
+    socialsTitle: string;
+    contact: {icon: string, info: string}[];
+    socials: {icon: string, link: string}[];
+}
+
+const { contactTitle, socialsTitle, contact, socials} = Astro.props;
+---
+<section class="row">
+    <h1 class='footer-header text-uppercase'>
+        {contactTitle}
+    </h1>
+    <ul class="px-1 mx-1" style="line-height: 1.6em;">
+        {
+            contact.map(item => (
+                <li>
+                    <Icon name={item.icon} alt={`${item.icon} icon`}></Icon>
+                    <span>{item.info}</span>
+                </li>
+            ))
+        }
+    </ul>
+    <h1 class='footer-header text-uppercase pt-2'>
+        {socialsTitle}
+    </h1>
+    <p>
+        {
+            socials.map(item => (
+                <a
+                    id={`socials-${item.icon}-link`}
+                    class="icon-wrapper"
+                    href={item.link}
+                    aria-label={`Link to ${item.icon} profile.`}
+                    target="_blank"
+                >
+                <Icon name={item.icon} alt={`${item.icon} logo`}/>
+                </a>
+            ))
+        }
+    </p>
+</section>

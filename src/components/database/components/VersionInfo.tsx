@@ -1,4 +1,4 @@
-import type { DatabaseVersion } from '../../../api'
+import type { DatabaseVersion } from '../../../client'
 
 
 const VersionInfo = ({version}: {version: DatabaseVersion}) => {
