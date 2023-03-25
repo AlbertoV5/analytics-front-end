@@ -1,4 +1,4 @@
-import type { Prediction, Metrics } from "../../../../api"
+import type { Prediction, Metrics } from "../../../../client"
 
 export type calculatorNames = 'heart_stay';
 type clf = "000" | "100" | "110" | "111";

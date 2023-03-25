@@ -1,6 +1,6 @@
 ---
 layout: ../../layouts/MainMid.astro
-title: Support
+title: "Support"
 ---
 <style>
     main {

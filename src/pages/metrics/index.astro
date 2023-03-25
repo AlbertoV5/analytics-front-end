@@ -16,7 +16,7 @@ const BASE_URL = import.meta.env.BASE_URL;
     }
 </style>
 <script type="module" src="https://public.tableau.com/javascripts/api/tableau.embedding.3.4.0.min.js"></script>
-<MainMid title={"Reports"}>
+<MainMid title={"Metrics"}>
     <header class="row">
         <div class='col-1 col-md-3'>
         </div>
@@ -33,7 +33,7 @@ const BASE_URL = import.meta.env.BASE_URL;
             {
                 reports.map(post => (
                 <div class="row">
-                    <div class="card p-4">
+                    <div class="card p-4" style="overflow: scroll;">
                         <a class="text-dark card-body "
                             href={`${BASE_URL}reports/${post.slug}`} 
                             style="text-decoration: none;"

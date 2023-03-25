@@ -1,0 +1,15 @@
+---
+/** Header and a single paragraph element. */
+export interface Props {
+    title: string;
+}
+const { title } = Astro.props;
+---
+<section id="footer-about" class="row pb-4" style="padding-right: 3em;">
+    <h1 class="footer-header text-uppercase">
+        {title}
+    </h1>
+    <p>
+        <slot/>
+    </p>
+</section>

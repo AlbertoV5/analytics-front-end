@@ -1,6 +1,6 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useState, useEffect } from "react";
-import { CalculatorService, OpenAPI } from "../../api";
+import { CalculatorService, OpenAPI } from "../../client";
 import { API_URL } from "../../config";
 
 import { useSession } from "../login/hooks/useSession";

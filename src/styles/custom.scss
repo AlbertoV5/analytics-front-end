@@ -185,3 +185,41 @@ footer li {
 // ----------
 // ICONS
 // ----------
+[astro-icon]{
+    width: 32px;
+    height: 32px;
+}
+[astro-icon="email"] { 
+    width: 100%;
+    width: 24px;
+    height: 24px;
+}
+[astro-icon="phone"] { 
+    width: 100%;
+    width: 24px;
+    height: 24px;
+}
+[astro-icon="twitter"] { 
+    width: 100%;
+    height: 100%;
+    padding: 12px;
+    color: #55ACEE; 
+}
+[astro-icon="linkedin"] {
+    padding: 16px;
+    padding-bottom: 20px;
+    color: #007bb5; 
+}
+[astro-icon]:hover {
+    color: #999999; 
+}
+.icon-wrapper {
+    display: inline-block;
+    background-color: #F8F9FA;
+    width: 3em;
+    height: 3em;
+    margin: 0px 4px 0px 4px;
+    border-radius: 45px;
+    box-shadow: 0 0.125rem 0.25rem rgb(0 0 0 / 8%);
+    text-decoration: none;
+}

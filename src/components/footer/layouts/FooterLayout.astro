@@ -1,0 +1,28 @@
+---
+/** Two-row footer. The first row is split in three columns.
+ * The second row is placed below with full-width.
+ * 
+ * Slots:
+ * - left: Half width.
+ * - center: Quarter width.
+ * - right: Quarter width.
+ * - bottom: Full width.
+*/
+---
+<section class="bg-primary text-light mt-2">   
+    <section class="container-fluid footer-container">
+        <section class="row">
+            <section class="col-12 col-md-5">
+                <slot name="left"/>
+            </section>
+            <aside class="col-0 col-md-1"/>
+            <section class="col-6 col-md-3">
+                <slot name="center"/>
+            </section>
+            <section class="col-6 col-md-3">
+                <slot name="right"/>
+            </section>
+        </section>
+    </section>
+    <slot name="bottom"/>
+</section>

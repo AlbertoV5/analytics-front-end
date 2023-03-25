@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 import TableControls from '../components/TableControls';
 
 import { API_URL } from '../../../config';
-import { DiagnosisService, OpenAPI } from '../../../api';
+import { DiagnosisService, OpenAPI } from '../../../client';
 import GenericTable from '../components/GenericTable';
 
 import VersionInfo from '../components/VersionInfo';
