@@ -1,12 +1,12 @@
 import { test, expect } from '@playwright/test';
 
 
-test.describe('Verify Page Titles. TODO: Support.', async () => {
+test.describe('Verify Page Titles.', async () => {
     const links: {title: string, href: string}[] = [
         {title: "Calculators", href: "calculators"},
         {title: "Metrics", href: "metrics"},
         {title: "Database", href: "database"},
-        {title: "", href: "support"}, // TODO: FIX!
+        {title: "Health Analytics MX", href: "support"}, // TODO: Fix Markdown titles.
         {title: "Login", href: "login"},
     ];
     for (const item of links) {

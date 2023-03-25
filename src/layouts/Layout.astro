@@ -27,7 +27,7 @@ const BASE_URL = import.meta.env.BASE_URL;
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>{title}</title>
+		<title>{title ? title : "Health Analytics MX"}</title>
 		<meta charset="UTF-8" />
 		{metaTags.map(tag => (<meta name={tag.name} content={tag.content} />))}
 		<meta name="viewport" content="width=device-width" />
