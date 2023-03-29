@@ -16,13 +16,13 @@ const CalculatorPanel = () => {
 
     const { getSession } = useSession();
     const [ calculator, setCalculator ] = useState<calculatorNames>('heart_stay');
-    const [ group, setGroup ] = useState<string | undefined>(undefined);
+    const [ name, setName ] = useState<string | undefined>(undefined);
 
     useEffect(() => {
         getSession()
-        .then(session => setGroup(session.user.group))
+        .then(session => setName(session.user.name))
     }, [])
-
+    
     return (
     <div className="container-fluid">
         <QueryClientProvider client={queryClient}>
@@ -41,7 +41,7 @@ const CalculatorPanel = () => {
             <div className='col-12 col-md-3 col-lg-4'>
             </div>
             <section className='col-12 col-md-6 col-lg-4 border-top py-4'>
-                <CalculatorSidePanel username={group} setCalculator={setCalculator}></CalculatorSidePanel>
+                <CalculatorSidePanel username={name} setCalculator={setCalculator}></CalculatorSidePanel>
             </section>
             <div className='col-12 col-md-3 col-lg-4'>
             </div>
