@@ -1,4 +1,4 @@
-# Health Analytics MX - A.I. Web App
+# A.I. Web App
 
 Static site (MPA) built with [Astro](https://astro.build/), React and Bootstrap. Using AWS Cognito for authentication.
 
