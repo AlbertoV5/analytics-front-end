@@ -9,7 +9,7 @@
     "styles": "sass src/styles/custom.scss public/custom.css",
     "preview": "astro preview",
     "openapi": "openapi --input openapi.json --output ./src/api",
-    "build": "astro build --base 'ai-calculators' --site 'https://health-analytics-mx.github.io/ai-calculators'",
+    "build": "astro build --base 'analytics-front-end' --site 'https://albertov5.github.io/analytics-front-end/'",
     "build-local": "astro build",
     "build-prod": "astro build",
     "test:unit": "npx vitest --config vitest.config.ts",
